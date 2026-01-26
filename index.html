@@ -4,49 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-left">
-            <img src="images/Logo.png" alt="Logo" class="logo">
-            <span class="logo-text">Milky ウエイ</span>
+
+    <nav class="sidebar">
+        <div class="profile-header">
+            <div class="logo-box">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            <h2 class="profile-name">Conrad Gacay</h2>
         </div>
-        
-        <div class="nav-right">
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact Me</a></li>
-            </ul>
-            <div class="menu-toggle">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-item active">Home</a></li>
+            <li><a href="#about" class="nav-item">About Me</a></li>
+            <li><a href="#projects" class="nav-item">Projects</a></li>
+            <li><a href="#skills" class="nav-item">Skills</a></li>
+            <li><a href="#contact" class="nav-item">Contact Me</a></li>
+        </ul>
+
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/conradgacay/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/Ac3CJ" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:conradgacay@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#" aria-label="Resume"><i class="fa-solid fa-file-pdf"></i></a>
         </div>
     </nav>
 
-    <!-- Hero Section with Triangle -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1 style="font-size:60px">Conrad Gacay</h1>
-            <p style="text-align: justify;">
-                I am a Robotics Engineering Student based in London. Aside from my studies, I have worked as a Hardware Engineering Intern at Abaco Systems, Control Systems 
-                Team Lead at Team Bath Robotics, and Controls & Sensors Subteam Lead at Team Bath Heart, developing a deep interest in Embedded Programming, Controls, and
-                Brain-Computer Interfacing for Prosthetics.
+    <main class="main-content">
+        
+        <section id="home" class="home-section">
+            
+            <div class="home-text">
+                <h1>Welcome to<br>My Portfolio</h1>
+                <p>
+                    I am a passionate developer creating modern digital experiences. 
+                    I specialize in building clean, efficient, and interactive solutions. 
+                    Explore my work to see how I combine creativity with code.
+                </p>
+                <a href="#projects" class="cta-button">View My Work</a>
+            </div>
 
-            </p>
-        </div>
-    </section>
+            <div class="visual-grid-container">
+                <div class="visual-col col-down">
+                    <div class="track">
+                        <img src="https://placehold.co/270x480/222/FFF?text=Img+1" alt="Work 1">
+                        <img src="https://placehold.co/270x480/333/FFF?text=Img+2" alt="Work 2">
+                        <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" autoplay loop muted playsinline></video>
+                        <img src="https://placehold.co/270x480/222/FFF?text=Img+1" alt="Work 1">
+                        <img src="https://placehold.co/270x480/333/FFF?text=Img+2" alt="Work 2">
+                        <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
 
-    <!-- Work Section -->
-    <section class="section work-section" id="work">
-        <h2>My Work</h2>
-        <!-- Portfolio items go here -->
-    </section>
+                <div class="visual-col col-up">
+                    <div class="track">
+                        <img src="https://placehold.co/270x480/444/FFF?text=Img+3" alt="Work 3">
+                        <img src="https://placehold.co/270x480/555/FFF?text=Img+4" alt="Work 4">
+                        <img src="https://placehold.co/270x480/222/FFF?text=Img+5" alt="Work 5">
+                        <img src="https://placehold.co/270x480/444/FFF?text=Img+3" alt="Work 3">
+                        <img src="https://placehold.co/270x480/555/FFF?text=Img+4" alt="Work 4">
+                        <img src="https://placehold.co/270x480/222/FFF?text=Img+5" alt="Work 5">
+                    </div>
+                </div>
 
-    <!-- Add more sections as needed -->
+                <div class="visual-col col-down-slow">
+                    <div class="track">
+                        <img src="https://placehold.co/270x480/666/FFF?text=Img+6" alt="Work 6">
+                        <video src="https://media.w3.org/2010/05/bunny/trailer.mp4" autoplay loop muted playsinline></video>
+                        <img src="https://placehold.co/270x480/777/FFF?text=Img+7" alt="Work 7">
+                        <img src="https://placehold.co/270x480/666/FFF?text=Img+6" alt="Work 6">
+                        <video src="https://media.w3.org/2010/05/bunny/trailer.mp4" autoplay loop muted playsinline></video>
+                        <img src="https://placehold.co/270x480/777/FFF?text=Img+7" alt="Work 7">
+                    </div>
+                </div>
 
-    <script src="js/script.js"></script>
+            </div>
+        </section>
+
+        <section id="about" style="height: 100vh; padding: 50px;">
+            <h2>About Me</h2>
+        </section>
+
+    </main>
+
+    <script src="./js/script.js"></script>
 </body>
 </html>

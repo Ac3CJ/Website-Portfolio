@@ -1,144 +1,281 @@
-/* ===== Variables ===== */
+/* --- Variables --- */
 :root {
-    --primary-color: #5959d4;
-    --secondary-color: #9578ff;
-    --text-color: #333;
-    --nav-height: 70px;
-    --transition-speed: 0.3s;
+    --sidebar-bg: #121212;
+    --body-bg: #1e1e1e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --separator: #333333;
+    --glow-color: #64ffda; /* Cyan/Green glow */
+    --sidebar-width: 260px;
 }
 
-/* ===== Base Styles ===== */
+/* --- Resets --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
+    background-color: var(--body-bg);
+    color: var(--text-main);
+    /* We removed 'height: 100vh' and 'overflow: hidden' 
+       so the body can scroll naturally now. */
 }
 
-/* ===== Utility Classes ===== */
-.section {
-    padding: 100px 20px;
-    min-height: 100vh;
-}
-
-/* ===== Navigation Styles ===== */
-.navbar {
-    position: fixed;
+/* --- Sidebar Styling (Fixed) --- */
+.sidebar {
+    /* FIXED POSITION: This locks the bar to the screen */
+    position: fixed; 
     top: 0;
-    width: 100%;
-    height: var(--nav-height);
-    background: rgb(255, 255, 255);
+    left: 0;
+    
+    width: var(--sidebar-width);
+    height: 100vh; /* Spans full height of the viewport */
+    background-color: var(--sidebar-bg);
+    
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 40px 20px;
+    
+    /* The border and gradient fade effect */
+    border-right: 1px solid var(--separator);
+    box-shadow: 5px 0 15px -5px rgba(0, 0, 0, 0.5); 
+    z-index: 100; /* Ensures it stays on top of content */
+}
+
+/* --- Profile Header --- */
+.profile-header {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    transition: all var(--transition-speed) ease;
-    z-index: 1000;
+    margin-bottom: 40px;
 }
 
-.navbar.shrink {
-    height: 50px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.nav-left {
+.logo-box {
+    width: 80px;
+    height: 80px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 2rem;
+    color: var(--text-muted);
 }
 
-.logo {
-    height: 3.5em;
-    transition: all var(--transition-speed) ease;
-}
-
-.logo-text {
-    font-size: 1.8rem;
+.profile-name {
+    font-size: 1.2rem;
     font-weight: 600;
     letter-spacing: 1px;
 }
 
+/* --- Navigation Links --- */
 .nav-links {
-    display: flex;
-    gap: 5vw;
     list-style: none;
-    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%; /* Ensure links take full width for centering */
 }
 
-.nav-links a {
+.nav-item {
     text-decoration: none;
-    color: var(--text-color);
-    transition: color var(--transition-speed);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: var(--primary-color);
+/* The Glow Effect */
+.nav-item:hover, .nav-item.active {
+    color: var(--text-main);
+    text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
 }
 
-.menu-toggle {
-    display: none;
-    cursor: pointer;
+/* --- Social Icons --- */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ===== Hero Section ===== */
-.hero {
+.social-links a {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--glow-color);
+}
+
+/* --- Main Content Area --- */
+.main-content {
+    /* MARGIN LEFT: Pushes content to the right so it doesn't hide behind sidebar */
+    margin-left: var(--sidebar-width); 
+    padding: 50px;
+    min-height: 100vh; /* Ensures bg color covers whole page even if content is short */
+}
+
+/* --- Home Section Layout --- */
+.home-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh; /* Takes up full screen height */
+    overflow: hidden; /* Ensures images don't spill out */
+    padding-right: 20px; /* Space from right edge */
+    gap: 40px;
+}
+
+/* --- Left Side: Text --- */
+.home-text {
+    flex: 0 0 40%; /* Takes up 40% of the width */
+    z-index: 2;
+    padding-left: 20px;
+}
+
+.home-text h1 {
+    font-size: 3rem; /* ~48px, adjustable */
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-weight: 700;
+    background: linear-gradient(to right, #fff, #a0a0a0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Gradient text effect */
+}
+
+.home-text p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: transparent;
+    border: 1px solid var(--glow-color);
+    color: var(--glow-color);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* --- Right Side: Scrolling Visuals --- */
+.visual-grid-container {
+    flex: 1; /* Takes remaining space */
+    height: 120vh; /* Taller than screen to help rotation feel immersive */
+    display: flex;
+    gap: 15px;
+    
+    /* ROTATION: Gives it a slight dynamic angle if desired, or keep flat */
+    transform: rotate(0deg) translateY(-10vh); 
+    
+    /* THE MASK: Fades top and bottom edges */
+    -webkit-mask-image: linear-gradient(to bottom, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%
+    );
+    mask-image: linear-gradient(to bottom, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%
+    );
+}
+
+.visual-col {
+    flex: 1;
     position: relative;
-    height: 85vh;
-    margin-top: var(--nav-height);
-    background: #f0f0f0;
-    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-
-      /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/images/Working2.jpg");
-
-    /* Position and center the image to scale nicely on all screens */
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
+    overflow: hidden; /* Hides the scrolling track overflow */
 }
 
-.hero-content {
-    position: absolute;
-    top: 20%;
-    left: 5%;
-    text-align: center;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0);
-    border-radius: 10px;
-    max-width: 600px;
-    color: #fff;
+/* The Track moves the images */
+.track {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
 }
 
-/* ===== Work Section ===== */
-.work-section {
-    background: #fff;
+.track img, .track video {
+    width: 100%;
+    aspect-ratio: 9/16; /* Portrait ratio */
+    object-fit: cover;
+    border-radius: 8px;
+    opacity: 0.8; /* Slight fade to make text pop more */
+    transition: opacity 0.3s;
+    background-color: #2a2a2a; /* Placeholder bg */
 }
 
-/* ===== Responsive Design ===== */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
+.track img:hover, .track video:hover {
+    opacity: 1;
+}
+
+/* --- Animations --- */
+
+/* 1. Downwards Animation */
+@keyframes scrollDown {
+    0% { transform: translateY(-50%); } /* Start halfway up (showing set 2) */
+    100% { transform: translateY(0%); } /* Move down to showing set 1 */
+}
+
+/* 2. Upwards Animation */
+@keyframes scrollUp {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(-50%); }
+}
+
+/* Column Specific Assignments */
+
+/* Column 1: Down, Normal Speed */
+.col-down .track {
+    animation: scrollDown 30s linear infinite;
+}
+
+/* Column 2: Up, Normal Speed */
+.col-up .track {
+    animation: scrollUp 30s linear infinite;
+}
+
+/* Column 3: Down, Slower (0.9x speed roughly) */
+.col-down-slow .track {
+    /* Increased duration = Slower speed */
+    animation: scrollDown 38s linear infinite; 
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .home-section {
+        flex-direction: column-reverse; /* Put images on top or hide them */
+        justify-content: center;
+        text-align: center;
     }
-    
-    .menu-toggle {
-        display: block;
-        position: absolute;
-        right: 20px;
+    .visual-grid-container {
+        display: none; /* Hide complex grid on mobile, or simplify to 1 column */
     }
-    
-    .navbar.active .nav-links {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: var(--nav-height);
-        left: 0;
-        right: 0;
-        background: white;
-        padding: 20px;
+    .home-text {
+        padding: 0;
+        flex: auto;
     }
 }
