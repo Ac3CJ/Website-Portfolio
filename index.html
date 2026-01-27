@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-
     <nav class="sidebar">
         <div class="profile-header">
             <div class="logo-box">
@@ -19,7 +18,6 @@
 
         <ul class="nav-links">
             <li><a href="#home" class="nav-item active">Home</a></li>
-            <li><a href="#about" class="nav-item">About Me</a></li>
             <li><a href="#projects" class="nav-item">Projects</a></li>
             <li><a href="#skills" class="nav-item">Skills</a></li>
             <li><a href="#contact" class="nav-item">Contact Me</a></li>
@@ -29,7 +27,7 @@
             <a href="https://www.linkedin.com/in/conradgacay/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
             <a href="https://github.com/Ac3CJ" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
             <a href="mailto:conradgacay@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-            <a href="#" aria-label="Resume"><i class="fa-solid fa-file-pdf"></i></a>
+            <a href="#" aria-label="Resume"><i class="fa fa-address-card" aria-hidden="true"></i></a>
         </div>
     </nav>
 
@@ -38,13 +36,18 @@
         <section id="home" class="home-section">
             
             <div class="home-text">
-                <h1>Welcome to<br>My Portfolio</h1>
+                <h1>Conrad Gacay<br>Robotics Engineer</h1>
                 <p>
-                    I am a passionate developer creating modern digital experiences. 
-                    I specialize in building clean, efficient, and interactive solutions. 
-                    Explore my work to see how I combine creativity with code.
+                    I am an MEng Robotics Engineering student at the University of Bath, specialising in 
+                    <strong>Biomedical Robotics</strong> and <strong>Prosthetics</strong>. 
+                    My work focuses on bridging biological signals with mechanical control, specifically in 
+                    upper-limb rehabilitation and non-invasive shoulder prosthetics. 
+                    Passionate about <strong>EEG/EMG signal processing</strong>, <strong>embedded systems</strong>, 
+                    and <strong>robotics control</strong> to create assistive technologies that restore human capability.
                 </p>
-                <a href="#projects" class="cta-button">View My Work</a>
+                <div class="cta-group">
+                    <a href="#projects" class="cta-button">View Engineering Projects</a>
+                    </div>
             </div>
 
             <div class="visual-grid-container">
@@ -84,12 +87,64 @@
             </div>
         </section>
 
-        <section id="about" style="height: 100vh; padding: 50px;">
-            <h2>About Me</h2>
+        <section id="projects" class="projects-section">
+            <h2 class="section-title">My Engineering Work</h2>
+            
+            <div class="graph-container">
+                <div id="graph-view"></div>
+                <div class="graph-instruction">
+                    <p><i class="fa-solid fa-mouse-pointer"></i> Drag nodes to interact • Click to view details</p>
+                </div>
+            </div>
+
+            <div class="project-list-container">
+                
+                <div class="project-card" data-id="smart-knee">
+                    <div class="card-img-holder">
+                        <i class="fa-solid fa-microchip"></i> </div>
+                    <div class="card-info">
+                        <h3>Smart Knee Brace</h3>
+                        <p>Integration & Control Systems</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-id="shoulder-prosthetic">
+                    <div class="card-img-holder">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Shoulder Prosthetic</h3>
+                        <p>Non-invasive Control & Signal Processing</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-id="spike-detector">
+                    <div class="card-img-holder">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Neuron Spike Detector</h3>
+                        <p>Neural Networks & CNN</p>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
-    </main>
+        <div id="project-modal" class="modal-overlay">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Project Title</h2>
+                <div class="modal-body">
+                    <p id="modal-description">Description goes here...</p>
+                    <div class="modal-tags" id="modal-tags">
+                        </div>
+                </div>
+            </div>
+        </div>
 
+    </main>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="./js/script.js"></script>
 </body>
 </html>
