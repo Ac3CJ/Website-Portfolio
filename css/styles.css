@@ -331,11 +331,38 @@ body {
     opacity: 0.7;
 }
 
-/* --- 2. Project List (The Red Boxes) --- */
+/* --- 2. Project List --- */
 .project-list-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    
+    /* LIMIT HEIGHT: roughly fits 4 cards (adjust 450px if needed) */
+    max-height: 450px; 
+    
+    /* ENABLE SCROLLING: */
+    overflow-y: auto;
+    
+    /* Padding to prevent text hitting the scrollbar */
+    padding-right: 10px; 
+}
+
+.project-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.project-list-container::-webkit-scrollbar-track {
+    background: #1a1a1a; /* Dark background */
+    border-radius: 4px;
+}
+
+.project-list-container::-webkit-scrollbar-thumb {
+    background: #333; /* Darker grey handle */
+    border-radius: 4px;
+}
+
+.project-list-container::-webkit-scrollbar-thumb:hover {
+    background: var(--glow-color); /* Glows when you grab it */
 }
 
 .project-card {
