@@ -316,33 +316,238 @@ const graphData = {
     // =========================================================
     // 3. MODAL INTERACTION LOGIC
     // =========================================================
-    
+
+    // --- RICH CONTENT DATA STORE ---
+    const richProjectData = {
+        // FIXED: Key must match the node ID exactly ("LM Health Knee Brace")
+        "LM Health Knee Brace": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">Flutter / Dart</span>
+                <span class="tech-badge">C++ (Embedded)</span>
+                <span class="tech-badge">Bluetooth LE</span>
+                <span class="tech-badge">System Architecture</span>
+            </div>
+
+            <img src="./images/lm-health-subsystem-diagram.png" class="project-full-img" alt="Subsystem Integration Diagram">
+
+            <p style="color: #ccc; line-height: 1.6;">
+                Engineered the <strong>Integration & Control sub-system</strong> for a modular smart knee brace designed for rehabilitation and pain relief. 
+                The system bridges high-level user inputs with low-level hardware control using a robust BLE network.
+            </p>
+
+            <h3 class="project-section-title">Key Engineering Features</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-mobile-screen" style="color:#64ffda;"></i> Cross-Platform App</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Developed a <strong>Flutter-based mobile application</strong> serving as the central control hub. 
+                        Features include real-time device scanning, user profiles, and a dynamic dashboard for therapy management.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-brands fa-bluetooth-b" style="color:#2196F3;"></i> BLE Communication</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Implemented a custom BLE protocol using <strong>UUID-based Services and Characteristics</strong>. 
+                        Ensures low-latency communication between the central hub and multiple peripheral therapy modules.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-microchip" style="color:#FFD700;"></i> OOP Firmware</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Designed modular C++ firmware using <strong>Object-Oriented Programming</strong>. 
+                        Utilized state machines to manage "Active" and "Inactive" therapy states safely and efficiently.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="project-section-title">Testing & Validation Setup</h3>
+            
+            <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+                To validate the system architecture before hardware integration, a <strong>Virtual Peripheral</strong> was engineered using <strong>Linux Debian</strong>. 
+                By leveraging <strong>Python</strong> and the <strong>BlueZ</strong> stack, I simulated the BLE characteristics of the physical knee brace, allowing for rapid iteration of the Flutter control logic without hardware dependencies.
+            </p>
+
+            <img src="./images/testing-configuration.png" class="project-full-img" alt="Testing Configuration Setup with Arduino and Linux">
+
+            <h3 class="project-section-title">System Highlights</h3>
+            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                <li><strong>Scalable Architecture:</strong> Decoupled UI from hardware logic for easy expansion.</li>
+                <li><strong>Robust Error Handling:</strong> Automatic reconnection and signal loss management.</li>
+            </ul>
+        `,
+
+        "Neuron Spike Detector": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">Python 3.12</span>
+                <span class="tech-badge">PyTorch (CNN)</span>
+                <span class="tech-badge">Scikit-learn (PCA)</span>
+                <span class="tech-badge">Signal Processing</span>
+            </div>
+
+            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                Developed a hybrid signal processing pipeline to detect and classify neural spikes from raw brain wave data. 
+                The system utilizes a <strong>1D Convolutional Neural Network (CNN)</strong> for peak detection and a <strong>PCA-based Multi-Layer Perceptron (MLP)</strong> for classification.
+            </p>
+
+            <h3 class="project-section-title">System Architecture</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-wave-square" style="color:#64ffda; margin-right:8px;"></i> Pre-Processing</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Signals are cleaned using a median subtraction filter for drift removal, a Savitzky-Golay filter for high-frequency noise, and <strong>wavelet denoising</strong> for smoothing.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-magnifying-glass-chart" style="color:#2196F3; margin-right:8px;"></i> CNN Detection</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        A 1D CNN with ReLU and max-pooling slides across the signal to isolate potential spikes. 
+                        This approach ensures <strong>translation invariance</strong> and robustness against phase shifts.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-network-wired" style="color:#FFD700; margin-right:8px;"></i> PCA-MLP Classifier</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Detected spikes are dimensionality-reduced to <strong>50 components</strong> using PCA. 
+                        These features are fed into a 3-layer MLP to classify the signal into one of 5 spike classes or noise.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="project-section-title">Performance at Varying Noise Levels</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                Performance remains strong (Precision 0.97-1.00) at high SNRs but degrades at 0dB as noise amplitudes exceed feature strength.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                <div>
+                    <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold;">D1 (80dB) - Test Set</span>
+                    <img src="./images/D1_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D1 Classification Graph">
+                </div>
+                <div>
+                    <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D2 (60dB) - Validation</span>
+                    <img src="./images/D2_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D2 Classification Graph">
+                </div>
+                <div>
+                    <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D3 (40dB) - Validation</span>
+                    <img src="./images/D3_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D3 Classification Graph">
+                </div>
+                <div>
+                    <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D4 (20dB) - Validation</span>
+                    <img src="./images/D4_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D4 Classification Graph">
+                </div>
+                <div>
+                    <span style="color: #ff5555; font-size: 0.8rem; font-weight: bold;">D5 (0dB) - Validation</span>
+                    <img src="./images/D5_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D5 Classification Graph">
+                </div>
+                <div>
+                    <span style="color: #ff5555; font-size: 0.8rem; font-weight: bold;">D6 (<0dB) - Validation</span>
+                    <img src="./images/D6_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D6 Classification Graph">
+                </div>
+            </div>
+
+            <h3 class="project-section-title">Engineering Challenges & Solutions</h3>
+            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                <li><strong>Data Augmentation:</strong> Generated synthetic noisy datasets by superimposing real background noise (from D6) onto clean spikes (D1) to match SNR levels.</li>
+                <li><strong>Hard Negative Mining:</strong> Trained the model on "offset windows" (5–50 samples from peak) to force the network to distinguish true peaks from edge artifacts.</li>
+            </ul>
+        `
+    };
+
+    // Links for the footer buttons
+    const projectLinks = {
+        // FIXED: Key must match "LM Health Knee Brace"
+        "LM Health Knee Brace": {
+            github: "https://github.com/Ac3CJ/medical_lego_module_control",
+            report: "https://drive.google.com/file/d/18t0PpNwJsv1cveEKvQrYPH3RShImtgQ5/view?usp=drive_link"
+        },
+        "Neuron Spike Detector": {
+            github: "https://github.com/Ac3CJ/Neuron-Spike-Classifier"
+        }
+    };
+
+    // --- Modal Logic ---
     const modal = document.getElementById("project-modal");
     const closeModalBtn = document.querySelector(".close-modal");
     const modalTitle = document.getElementById("modal-title");
-    const modalDesc = document.getElementById("modal-description");
-    const modalTags = document.getElementById("modal-tags");
+    const modalBody = document.getElementById("modal-body-content");
+    const modalFooter = document.getElementById("modal-footer-content");
 
     function openModal(data) {
         if(!data) return;
 
-        modalTitle.textContent = data.id; // Or data.title if you add that property
-        modalDesc.textContent = data.info || "More details about this skill/project...";
-        
-        // Clear old tags
-        modalTags.innerHTML = '';
-        
-        // Find related connections for tags
-        const related = graphData.links
-            .filter(l => l.source.id === data.id || l.target.id === data.id)
-            .map(l => l.source.id === data.id ? l.target.id : l.source.id);
+        // 1. Set Title
+        modalTitle.textContent = data.id;
+
+        // 2. Set Content
+        if (richProjectData[data.id]) {
+            // A. Use Custom Rich HTML if available
+            modalBody.innerHTML = richProjectData[data.id];
+        } else {
+            // B. Fallback for other nodes (Default text + Tags)
+            modalBody.innerHTML = `
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #ccc;">${data.info || "No description available."}</p>
+                <div class="modal-tags" id="fallback-tags" style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;"></div>
+            `;
             
-        related.forEach(tag => {
-            const span = document.createElement("span");
-            span.classList.add("tag-badge");
-            span.textContent = tag;
-            modalTags.appendChild(span);
-        });
+            // Add tags dynamically for fallback
+            const related = graphData.links
+                .filter(l => l.source.id === data.id || l.target.id === data.id)
+                .map(l => l.source.id === data.id ? l.target.id : l.source.id);
+            
+            const tagContainer = document.getElementById("fallback-tags");
+            if(tagContainer) {
+                related.forEach(tag => {
+                    const span = document.createElement("span");
+                    span.classList.add("tech-badge");
+                    span.textContent = tag;
+                    tagContainer.appendChild(span);
+                });
+            }
+        }
+
+        // 3. Set Footer Buttons (Conditional Rendering)
+        const links = projectLinks[data.id];
+        
+        // Clear previous content
+        modalFooter.innerHTML = '';
+        
+        if (links) {
+            let buttonsHtml = '';
+
+            // Check if a Report link exists and is not just a placeholder "#"
+            if (links.report && links.report !== "#") {
+                buttonsHtml += `
+                    <a href="${links.report}" target="_blank" class="modal-btn btn-report">
+                        <i class="fa-solid fa-file-pdf"></i> View Report
+                    </a>
+                `;
+            }
+
+            // Check if a GitHub link exists
+            if (links.github && links.github !== "#") {
+                buttonsHtml += `
+                    <a href="${links.github}" target="_blank" class="modal-btn btn-github">
+                        <i class="fa-brands fa-github"></i> View Code
+                    </a>
+                `;
+            }
+
+            // Render buttons if any exist, otherwise hide footer
+            if (buttonsHtml) {
+                modalFooter.innerHTML = buttonsHtml;
+                modalFooter.style.display = "flex";
+            } else {
+                modalFooter.style.display = "none";
+            }
+        } else {
+            modalFooter.style.display = "none";
+        }
 
         modal.classList.add("show");
     }
@@ -356,12 +561,19 @@ const graphData = {
     document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('click', () => {
             const id = card.getAttribute('data-id');
-            const data = projectDetails[id];
-            openModal(data);
+            // We need to find the node object that matches this card's ID
+            // NOTE: Ensure your HTML data-id matches the graph node ID exactly, 
+            // or use a lookup map like we did previously.
+            // For now, let's assume the data-id="Smart Knee Brace" in HTML
+            const data = graphData.nodes.find(n => n.id === id) || 
+                         // Fallback map if IDs don't match perfectly
+                         (id === "smart-knee" ? graphData.nodes.find(n => n.id === "Smart Knee Brace") : null);
+            
+            if (data) openModal(data);
         });
     });
 
-    // C. Close Modal
+    // C. Close Modal Interactions
     closeModalBtn.addEventListener("click", () => {
         modal.classList.remove("show");
     });
