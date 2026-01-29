@@ -338,7 +338,6 @@ body {
     max-height: 600px; /* Increased height for better view */
     overflow-y: auto;
     padding-right: 10px;
-    overscroll-behavior: contain;
 }
 
 @media (max-width: 900px) {
@@ -645,4 +644,80 @@ body {
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
+}
+
+/* ================= CONTACT SECTION ================= */
+.contact-section {
+    min-height: 60vh; /* Takes up less than a full screen, just enough to fill */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 20px;
+    max-width: 600px;
+    margin: 0 auto; /* Centers the block horizontally within main */
+}
+
+.contact-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.contact-btn {
+    font-size: 1rem;
+    padding: 15px 30px;
+    margin-bottom: 80px; /* Space between button and footer */
+}
+
+.contact-buttons-container {
+    display: flex;
+    gap: 20px;            /* Space between buttons */
+    justify-content: center;
+    flex-wrap: wrap;      /* Stack them on small mobile screens */
+    margin-bottom: 80px;  /* Space before the footer */
+}
+
+/* Ensure the buttons look consistent */
+.contact-section .cta-button {
+    font-size: 1rem;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ================= SIMPLE FOOTER ================= */
+.simple-footer {
+    width: 100%;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.social-links-footer {
+    display: flex;
+    gap: 20px;
+}
+
+.social-links-footer a {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.social-links-footer a:hover {
+    color: var(--glow-color);
+    transform: translateY(-3px);
+}
+
+.simple-footer p {
+    font-size: 0.85rem;
+    color: #555;
+    font-family: monospace;
 }

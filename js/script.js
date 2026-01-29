@@ -72,7 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         {id: "Market Research", group: "skill"},
         {id: "Robotics Design", group: "skill"},
         {id: "System Integration", group: "skill"},
-        {id: "Optimisation", group: "skill"}
+        {id: "Optimisation", group: "skill"},
+        {id: "Biomimetics", group: "skill"}
     ]
 
     const masterProjects = [
@@ -630,7 +631,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 </ul>
             `
         },
-            {
+        {
+            id: "Biomimetic Shoulders Lit. Review",
+            subtitle: "Kinematic Architecture Review",
+            icon: "fa-solid fa-book-journal-whills",
+            tags: ["Technical Writing", "Robotics Design", "Biomimetics"],
+            links: { 
+                github: null, 
+                report: "https://drive.google.com/file/d/1PYB9QhEXeSlolK7IAwJ8r4a5Evnq86Yl/view?usp=drive_link" 
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">Academic Research</span>
+                    <span class="tech-badge">Comparative Analysis</span>
+                    <span class="tech-badge">Soft Robotics</span>
+                    <span class="tech-badge">Actuator Design</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    A critical review of state-of-the-art <strong>Biomimetic Upper-Limb Architectures</strong>, categorizing systems into "Pseudo-Biomimetic" (Cable-Driven) and "High Bio-Fidelity" (Soft Actuators). 
+                    The study evaluates the trade-off between dynamic capacity (speed/payload) and intrinsic compliance for safe Human-Robot Interaction (HRI).
+                </p>
+
+                <img src="./images/biomimetic-pwr-graph.png" class="project-full-img" alt="PWR Comparison Graph">
+
+                <h3 class="project-section-title">1. Pseudo-Biomimetic Systems</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                    <strong>Technology:</strong> Cable-Driven Mechanisms
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-bolt" style="color:#64ffda; margin-right:8px;"></i> High Performance</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Dominated quantitative metrics, achieving <strong>Payload-to-Weight Ratios (PWR) > 1.80</strong> and speeds exceeding <strong>11 m/s</strong>.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-triangle-exclamation" style="color:#ff5555; margin-right:8px;"></i> Safety Risks</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            High inertia and stiffness make them dangerous for unstructured collaborative environments.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">2. High Bio-Fidelity Designs</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                    <strong>Technology:</strong> Pneumatic Artificial Muscles (PAMs) & Smart Materials
+                </p>
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Intrinsic Safety:</strong> PAMs offer excellent compliance but suffer from non-linear control challenges and lower precision.</li>
+                    <li><strong>Smart Materials:</strong> Emerging solutions like <strong>HASEL actuators</strong> offer silent, self-sensing operation but are currently limited by minute payload capacities (<50g).</li>
+                </ul>
+
+                <h3 class="project-section-title">Conclusion</h3>
+                <p style="color: #ccc; line-height: 1.6;">
+                    The review identified <strong>Hybrid Variable Stiffness Actuators (VSAs)</strong> as the most promising solution. 
+                    By combining motor-driven power with compliant elastic elements, VSAs bridge the gap between industrial performance and biological safety.
+                </p>
+            `
+        },
+        {
             id: "Non-Invasive Prosthetic Control",
             subtitle: "EEG/EMG Control & Signal Processing",
             icon: "fa-solid fa-robot",
