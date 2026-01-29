@@ -210,7 +210,7 @@ const graphData = {
         .selectAll("circle")
         .data(graphData.nodes)
         .join("circle")
-        .attr("r", d => 5 + (d.connections * 1.5)) // Size based on connections
+        .attr("r", d => 5 + (d.connections * 0.5)) // Size based on connections
         .attr("fill", d => d.group === 'project' ? colorProject : colorSkill)
         .attr("stroke", "#fff")
         .attr("stroke-width", 1.5)
@@ -269,7 +269,7 @@ const graphData = {
         .attr("pointer-events", "none") // Prevents text from interfering with drag clicks
         .attr("dy", d => {
             // Calculate the radius exactly as we did for the node: 5 + (connections * 2)
-            const radius = 5 + (d.connections * 2);
+            const radius = 5 + (d.connections * 0.5);
             // Add radius + padding (e.g., 15px) to push text below the circle
             return radius + 15; 
         });
@@ -456,18 +456,95 @@ const graphData = {
                 <li><strong>Data Augmentation:</strong> Generated synthetic noisy datasets by superimposing real background noise (from D6) onto clean spikes (D1) to match SNR levels.</li>
                 <li><strong>Hard Negative Mining:</strong> Trained the model on "offset windows" (5–50 samples from peak) to force the network to distinguish true peaks from edge artifacts.</li>
             </ul>
+        `,
+
+        "Genetic Algorithm Analysis": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Matplotlib</span>
+                <span class="tech-badge">Optimization</span>
+                <span class="tech-badge">Evolutionary Computation</span>
+            </div>
+
+            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                An in-depth analysis of <strong>Genetic Algorithms (GA)</strong> applied to numerical optimization problems. 
+                The study investigates the impact of hyperparameters on convergence speed and validates the <strong>Schema Theorem</strong> 
+                by tracking the propagation of "building blocks" through generations.
+            </p>
+
+            <h3 class="project-section-title">Numerical Optimization For Sums of Sets with N Numbers</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                <strong>Objective:</strong> Optimise a set of N numbers to sum to a specific target value (550).
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-sliders" style="color:#64ffda; margin-right:8px;"></i> Hyperparameters</h4>
+                    <ul style="font-size: 0.85rem; color: #a0a0a0; padding-left: 20px; line-height: 1.6;">
+                        <li><strong>Population:</strong> 400 individuals</li>
+                        <li><strong>Mutation Rate:</strong> 0.01 (1%)</li>
+                        <li><strong>Retain Rate:</strong> 0.20 (Elitism)</li>
+                        <li><strong>Crossover:</strong> Single-point (1.00 rate)</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-chart-line" style="color:#2196F3; margin-right:8px;"></i> Performance</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        The optimized GA achieved convergence in just <strong>20 generations</strong> (0.01 seconds). 
+                        Ranking selection was used to prioritize higher fitness individuals while maintaining diversity.
+                    </p>
+                </div>
+            </div>
+
+            <img src="./images/ga-convergence.png" class="project-full-img">
+
+            <h3 class="project-section-title">Holland Schema Theorem</h3>
+            <p style="color: #ccc; line-height: 1.6;">
+                This section validates the <strong>Building Block Hypothesis</strong>, which states that short, low-order schemata with above-average fitness increase exponentially in frequency.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-check" style="color:#FFD700; margin-right:8px;"></i> Good Schema</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        <strong>Definition:</strong> <code>Coeff[0] == 25</code><br>
+                        Observed an exponential increase in instances, aligning closely with the theoretical estimate, proving the selection pressure favours beneficial traits.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-xmark" style="color:#ff5555; margin-right:8px;"></i> Bad Schema</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        <strong>Definition:</strong> <code>Coeff[1] == 10</code><br>
+                        Instances rapidly decayed to near zero. The "disruption" caused by crossover and mutation effectively filtered out these lower-fitness genes over time.
+                    </p>
+                </div>
+            </div>
+
+            <img src="./images/holland-schema.png" class="project-full-img">
+
+            <h3 class="project-section-title">Conclusion</h3>
+            <p style="color: #a0a0a0; line-height: 1.6;">
+                The study confirmed that while mutation introduces necessary diversity to prevent local optima, <strong>Selection Pressure</strong> is the primary driver of convergence. 
+                The results successfully demonstrated the Schema Theorem mechanics, with "Good" schemata dominating the population as generations progressed.
+            </p>
         `
     };
 
     // Links for the footer buttons
     const projectLinks = {
-        // FIXED: Key must match "LM Health Knee Brace"
         "LM Health Knee Brace": {
             github: "https://github.com/Ac3CJ/medical_lego_module_control",
             report: "https://drive.google.com/file/d/18t0PpNwJsv1cveEKvQrYPH3RShImtgQ5/view?usp=drive_link"
         },
         "Neuron Spike Detector": {
-            github: "https://github.com/Ac3CJ/Neuron-Spike-Classifier"
+            github: "https://github.com/Ac3CJ/Neuron-Spike-Classifier",
+            report: null
+        },
+        "Genetic Algorithm Analysis": {
+            github: null, 
+            report: "https://drive.google.com/file/d/1mDeMOMkM67sBqn7Kyqi_ZcT4a4vYf2ZE/view?usp=drive_link"
         }
     };
 
