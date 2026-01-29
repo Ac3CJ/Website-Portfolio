@@ -42,123 +42,647 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Nodes: id = unique name, group = 'project' or 'skill'
     // Links: source -> target connections
-const graphData = {
-        nodes: [
-            // --- PROJECTS (Blue Nodes) ---
-            // Large Projects (FYP, GDBP)
-            {id: "LM Health Knee Brace", group: "project", info: "Bluetooth-controlled pain relief module using Python & Flutter."},
-            {id: "Non-Invasive Prosthetic Control", group: "project", info: "Final Year Project: Non-invasive control using EEG/EMG signals."},
 
-            // Smaller Projects (CW & Personal)
-            {id: "Neuron Spike Detector", group: "project", info: "CNN-based classifier for neuron spikes using PCA."},
-            {id: "Genetic Algorithm Analysis", group: "project", info: "Analysis of Genetic Algorithms"},
-            {id: "CoppeliaSim Robot Simulation", group: "project", info: "ROS-based obstacle avoidance and AI control."},
-            {id: "FPGA RISC CPU", group: "project", info: "Designed a CPU and Pong game on Cyclone FPGA."},
-            {id: "Nucleo Fan Controller", group: "project", info: "STM32-based fan speed controller with user interface."},
-            {id: "PIC16F84A Embedded Projects", group: "project", info: "Assembly & C embedded systems projects programmed on a PIC16F84A"},
+    const skillNodes = [
+        {id: "Python", group: "skill"},
+        {id: "C/C++", group: "skill"},
+        {id: "SystemVerilog", group: "skill"},
+        // {id: "Dart", group: "skill"},
+        {id: "Assembly Language", group: "skill"},
+        
+        // Domain Specific
+        {id: "ROS", group: "skill"},
+        {id: "Embedded Systems", group: "skill"},
+        {id: "Machine Learning", group: "skill"},
+        {id: "Control Theory", group: "skill"},
+        {id: "Signal Processing", group: "skill"},
+        {id: "FPGA", group: "skill"},
+        {id: "Hardware Design", group: "skill"},
+        
+        // Technologies/Tools
+        {id: "Flutter/Dart", group: "skill"},
+        {id: "Bluetooth LE", group: "skill"},
+        {id: "STM32", group: "skill"},
+        {id: "Arduino", group: "skill"},
+        {id: "Linux", group: "skill"},
 
-            // Technical Writing
-            {id: "Biomimetic Shoulders Lit. Review", group: "project", info: "Review of kinematic architectures in upper-body robotics."},
-            {id: "Healthtech Company Analysis", group: "project", info: "Market analysis and strategy for wearable health tech."},
+        // Misc.
+        {id: "Technical Writing", group: "skill"},
+        {id: "Business Analysis", group: "skill"},
+        {id: "Market Research", group: "skill"},
+        {id: "Robotics Design", group: "skill"},
+        {id: "System Integration", group: "skill"},
+        {id: "Optimisation", group: "skill"}
+    ]
 
-            // --- SKILLS (Yellow Nodes) ---
-            // Languages
-            {id: "Python", group: "skill"},
-            {id: "C/C++", group: "skill"},
-            {id: "SystemVerilog", group: "skill"},
-            {id: "Dart", group: "skill"},
+    const masterProjects = [
+        {
+            id: "LM Health Knee Brace",
+            subtitle: "Integration & Control Systems",
+            icon: "fa-solid fa-microchip",
+            tags: ["Flutter/Dart", "C/C++", "Bluetooth LE", "Embedded Systems", "Arduino", "Linux", "System Integration", "Market Research", "Python", "Technical Writing",
+                "Business Analysis"
+            ], 
+            links: {
+                github: "https://github.com/Ac3CJ/medical_lego_module_control",
+                report: "https://drive.google.com/file/d/18t0PpNwJsv1cveEKvQrYPH3RShImtgQ5/view?usp=drive_link"
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                <span class="tech-badge">Flutter / Dart</span>
+                <span class="tech-badge">C++ (Embedded)</span>
+                <span class="tech-badge">Bluetooth LE</span>
+                <span class="tech-badge">System Architecture</span>
+                </div>
+
+                <img src="./images/lm-health-subsystem-diagram.png" class="project-full-img" alt="Subsystem Integration Diagram">
+
+                <p style="color: #ccc; line-height: 1.6;">
+                    Engineered the <strong>Integration & Control sub-system</strong> for a modular smart knee brace designed for rehabilitation and pain relief. 
+                    The system bridges high-level user inputs with low-level hardware control using a robust BLE network.
+                </p>
+
+                <h3 class="project-section-title">Key Engineering Features</h3>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-mobile-screen" style="color:#64ffda;"></i> Cross-Platform App</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Developed a <strong>Flutter-based mobile application</strong> serving as the central control hub. 
+                            Features include real-time device scanning, user profiles, and a dynamic dashboard for therapy management.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-brands fa-bluetooth-b" style="color:#2196F3;"></i> BLE Communication</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Implemented a custom BLE protocol using <strong>UUID-based Services and Characteristics</strong>. 
+                            Ensures low-latency communication between the central hub and multiple peripheral therapy modules.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-microchip" style="color:#FFD700;"></i> OOP Firmware</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Designed modular C++ firmware using <strong>Object-Oriented Programming</strong>. 
+                            Utilized state machines to manage "Active" and "Inactive" therapy states safely and efficiently.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Testing & Validation Setup</h3>
+                
+                <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+                    To validate the system architecture before hardware integration, a <strong>Virtual Peripheral</strong> was engineered using <strong>Linux Debian</strong>. 
+                    By leveraging <strong>Python</strong> and the <strong>BlueZ</strong> stack, I simulated the BLE characteristics of the physical knee brace, allowing for rapid iteration of the Flutter control logic without hardware dependencies.
+                </p>
+
+                <img src="./images/testing-configuration.png" class="project-full-img" alt="Testing Configuration Setup with Arduino and Linux">
+
+                <h3 class="project-section-title">System Highlights</h3>
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Scalable Architecture:</strong> Decoupled UI from hardware logic for easy expansion.</li>
+                    <li><strong>Robust Error Handling:</strong> Automatic reconnection and signal loss management.</li>
+                </ul>
+            `
+        },
+        {
+            id: "Neuron Spike Detector",
+            subtitle: "Neural Networks & CNN",
+            icon: "fa-solid fa-brain",
+            tags: ["Python", "Machine Learning", "Signal Processing", "Optimisation"],
+            links: {
+                github: "https://github.com/Ac3CJ/Neuron-Spike-Classifier",
+                report: null
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">Python 3.12</span>
+                    <span class="tech-badge">PyTorch (CNN)</span>
+                    <span class="tech-badge">Scikit-learn (PCA)</span>
+                    <span class="tech-badge">Signal Processing</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    Developed a hybrid signal processing pipeline to detect and classify neural spikes from raw brain wave data. 
+                    The system utilizes a <strong>1D Convolutional Neural Network (CNN)</strong> for peak detection and a <strong>PCA-based Multi-Layer Perceptron (MLP)</strong> for classification.
+                </p>
+
+                <h3 class="project-section-title">System Architecture</h3>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-wave-square" style="color:#64ffda; margin-right:8px;"></i> Pre-Processing</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Signals are cleaned using a median subtraction filter for drift removal, a Savitzky-Golay filter for high-frequency noise, and <strong>wavelet denoising</strong> for smoothing.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-magnifying-glass-chart" style="color:#2196F3; margin-right:8px;"></i> CNN Detection</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            A 1D CNN with ReLU and max-pooling slides across the signal to isolate potential spikes. 
+                            This approach ensures <strong>translation invariance</strong> and robustness against phase shifts.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-network-wired" style="color:#FFD700; margin-right:8px;"></i> PCA-MLP Classifier</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Detected spikes are dimensionality-reduced to <strong>50 components</strong> using PCA. 
+                            These features are fed into a 3-layer MLP to classify the signal into one of 5 spike classes or noise.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Performance at Varying Noise Levels</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    Performance remains strong (Precision 0.97-1.00) at high SNRs but degrades at 0dB as noise amplitudes exceed feature strength.
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                    <div>
+                        <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold;">D1 (80dB) - Test Set</span>
+                        <img src="./images/D1_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D1 Classification Graph">
+                    </div>
+                    <div>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D2 (60dB) - Validation</span>
+                        <img src="./images/D2_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D2 Classification Graph">
+                    </div>
+                    <div>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D3 (40dB) - Validation</span>
+                        <img src="./images/D3_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D3 Classification Graph">
+                    </div>
+                    <div>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D4 (20dB) - Validation</span>
+                        <img src="./images/D4_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D4 Classification Graph">
+                    </div>
+                    <div>
+                        <span style="color: #ff5555; font-size: 0.8rem; font-weight: bold;">D5 (0dB) - Validation</span>
+                        <img src="./images/D5_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D5 Classification Graph">
+                    </div>
+                    <div>
+                        <span style="color: #ff5555; font-size: 0.8rem; font-weight: bold;">D6 (<0dB) - Validation</span>
+                        <img src="./images/D6_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D6 Classification Graph">
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Engineering Challenges & Solutions</h3>
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Data Augmentation:</strong> Generated synthetic noisy datasets by superimposing real background noise (from D6) onto clean spikes (D1) to match SNR levels.</li>
+                    <li><strong>Hard Negative Mining:</strong> Trained the model on "offset windows" (5–50 samples from peak) to force the network to distinguish true peaks from edge artifacts.</li>
+                </ul>
+            `
+        },
+        {
+            id: "CoppeliaSim Robot Simulation",
+            subtitle: "ROS & Obstacle Avoidance",
+            icon: "fa-solid fa-vr-cardboard",
+            tags: ["Python", "ROS", "Machine Learning", "Linux"],
+            links: {
+                github: "https://github.com/Ac3CJ/ros-coppeliasim-robot-cw",
+                report: "https://drive.google.com/file/d/1uEhiBZxMzIcx5-P6cUhvjCAX-VJPBq-M/view?usp=drive_link"
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">ROS / ROS 2</span>
+                    <span class="tech-badge">CoppeliaSim</span>
+                    <span class="tech-badge">Computer Vision (CNN)</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    Designed and simulated a differential drive mobile robot in <strong>CoppeliaSim</strong> controlled via a custom <strong>ROS</strong> architecture. 
+                    The system features a hybrid obstacle avoidance algorithm using LIDAR and proximity sensors, and a deep-learning-based controller that navigates using visual cues.
+                </p>
+
+                <h3 class="project-section-title">Task 1: Reactive Obstacle Avoidance</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    <strong>Objective:</strong> Navigate a walled maze autonomously without collisions.
+                </p>
+                
+                <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
+                    <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                        <source src="./videos/obstacle-demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="feature-grid" style="margin-top: 20px;">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-bullseye" style="color:#64ffda; margin-right:8px;"></i> LIDAR Navigation</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Processed <code>/scan</code> data to detect the furthest open path. 
+                            Implemented dynamic thresholding to ignore backward-facing paths, forcing forward progression.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-road" style="color:#2196F3; margin-right:8px;"></i> Proximity Safety</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Integrated 8 proximity sensors to detect immediate wall collisions. 
+                            Used proportional control to actively steer away from walls when the LIDAR path was too close.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Task 2: CNN Visual Control</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    <strong>Objective:</strong> Control robot movement by classifying arrow directions (Up, Down, Left, Right) from a camera feed.
+                </p>
+
+                <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
+                    <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                        <source src="./videos/arrow-demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8; margin-top: 15px;">
+                    <li><strong>Model Architecture:</strong> Custom CNN with 2 Convolutional/Pooling layers and a Fully Connected output layer. Utilized <strong>Dropout</strong> to prevent overfitting.</li>
+                    <li><strong>Performance:</strong> Achieved <strong>>97% accuracy</strong> on the validation set of ~4000 arrow images.</li>
+                    <li><strong>Integration:</strong> The model runs in a ROS node, processing images in real-time and publishing <code>/cmd_vel</code> commands to drive the robot.</li>
+                </ul>
+            `
+        },
+        {
+            id: "Nucleo Fan Controller",
+            subtitle: "Embedded Systems (STM32)",
+            icon: "fa-solid fa-fan",
+            tags: ["C/C++", "STM32", "Embedded Systems", "Control Theory", "Hardware Design"],
+            links: {
+                github: "https://github.com/Ac3CJ/Nucleo-Fan-Controller",
+                report: null
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">C / C++</span>
+                    <span class="tech-badge">STM32</span>
+                    <span class="tech-badge">PID Control</span>
+                    <span class="tech-badge">I2C / PWM</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    Developed a robust embedded fan controller on an <strong>STM32 Nucleo-64</strong> board. 
+                    The system features real-time <strong>Closed-Loop PID Control</strong> for both Fan Speed (RPM) and Temperature, allowing precise regulation based on sensor feedback.
+                </p>
+
+                <img src="./images/fan-controller.jpg" class="project-full-img" alt="Fan Controller Setup">
+
+                <h3 class="project-section-title">Control Modes</h3>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-gauge-high" style="color:#64ffda; margin-right:8px;"></i> Open Loop</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Direct control of the fan's PWM Duty Cycle (0-100%) using the rotary encoder. 
+                            Useful for manual testing and characterizing the fan's max speed.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-rotate" style="color:#2196F3; margin-right:8px;"></i> Closed Loop RPM</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Maintains a specific target RPM (60-2600 RPM) regardless of load changes. 
+                            Utilizes a <strong>PID algorithm</strong> (ComputeFanPID) to dynamically adjust PWM based on tachometer feedback.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-temperature-half" style="color:#FFD700; margin-right:8px;"></i> Thermal Control</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Adjusts fan speed to maintain a target temperature. 
+                            Reads external temperature sensors via I2C and uses a secondary PID loop (ComputeTempPID) to stabilize the system.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">System Architecture</h3>
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Interrupt-Driven Inputs:</strong> Tachometer readings and User Inputs (Button/Encoder) are handled via Interrupt Service Routines (ISRs) for microsecond-level precision.</li>
+                    <li><strong>State Machine Design:</strong> Implemented a robust state machine to handle mode switching and OLED screen updates without blocking the main control loop.</li>
+                </ul>
+            `
+        },
+        {
+            id: "FPGA RISC CPU",
+            subtitle: "SystemVerilog & Hardware Design",
+            icon: "fa-solid fa-gamepad",
+            tags: ["SystemVerilog", "FPGA", "Hardware Design", "Embedded Systems", "System Integration"],
+            links: { github: "https://github.com/Ac3CJ/FPGA-CPU-And-Pong-Game", report: null },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">SystemVerilog</span>
+                    <span class="tech-badge">Quartus Prime</span>
+                    <span class="tech-badge">Assembly Language</span>
+                    <span class="tech-badge">Digital Logic Design</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    Designed and implemented a custom <strong>HighRISC Microprocessor</strong> on a <strong>5CSEMA5F31C6 FPGA</strong> board. 
+                    The project involved building the CPU from scratch using SystemVerilog, defining a custom <strong>Instruction Set Architecture (ISA)</strong>, and writing Assembly drivers to render a playable Pong game via VGA.
+                </p>
+
+                <img src="./images/cpu-architecture.png" class="project-full-img" alt="HighRISC CPU Architecture">
+
+                <h3 class="project-section-title">Processor Architecture</h3>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-diagram-project" style="color:#64ffda; margin-right:8px;"></i> Custom ISA</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Defined a specific opcode set including <code>LOAD</code>, <code>STORE</code>, and <code>JUMP</code> instructions. 
+                            The Control Unit manages the Fetch-Decode-Execute cycle, coordinating data flow between the ALU, Registers, and RAM.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-memory" style="color:#2196F3; margin-right:8px;"></i> Memory & I/O</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Implemented a von Neumann architecture where program code and video memory share the address space. 
+                            This allows the CPU to write directly to VGA buffers to update game state pixels in real-time.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Pong Game Implementation</h3>
+                <p style="color: #ccc; line-height: 1.6;">
+                    The final validation involved writing a complete game in Assembly to demonstrate the CPU's capabilities.
+                </p>
+
+                <img src="./images/pong-game.jpg" class="project-full-img" style="margin-top: 20px;" alt="FPGA Pong Game Demo">
+
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>VGA Driver:</strong> Created a hardware module to generate strict H-Sync and V-Sync timing signals for 640x480 resolution.</li>
+                    <li><strong>Game Logic:</strong> Handled collision detection and paddle movement by reading the FPGA's physical buttons and updating the frame buffer on every clock cycle.</li>
+                </ul>
+            `
+        },
+        {
+            id: "Genetic Algorithm Analysis",
+            subtitle: "Optimization & Schema Theorem",
+            icon: "fa-solid fa-dna",
+            tags: ["Python", "Optimization", "Technical Writing"],
+            links: {
+                github: null, 
+                report: "https://drive.google.com/file/d/1mDeMOMkM67sBqn7Kyqi_ZcT4a4vYf2ZE/view?usp=drive_link"
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Matplotlib</span>
+                    <span class="tech-badge">Optimization</span>
+                    <span class="tech-badge">Evolutionary Computation</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    An in-depth analysis of <strong>Genetic Algorithms (GA)</strong> applied to numerical optimization problems. 
+                    The study investigates the impact of hyperparameters on convergence speed and validates the <strong>Schema Theorem</strong> 
+                    by tracking the propagation of "building blocks" through generations.
+                </p>
+
+                <h3 class="project-section-title">Numerical Optimization For Sums of Sets with N Numbers</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    <strong>Objective:</strong> Optimise a set of N numbers to sum to a specific target value (550).
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-sliders" style="color:#64ffda; margin-right:8px;"></i> Hyperparameters</h4>
+                        <ul style="font-size: 0.85rem; color: #a0a0a0; padding-left: 20px; line-height: 1.6;">
+                            <li><strong>Population:</strong> 400 individuals</li>
+                            <li><strong>Mutation Rate:</strong> 0.01 (1%)</li>
+                            <li><strong>Retain Rate:</strong> 0.20 (Elitism)</li>
+                            <li><strong>Crossover:</strong> Single-point (1.00 rate)</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-chart-line" style="color:#2196F3; margin-right:8px;"></i> Performance</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            The optimized GA achieved convergence in just <strong>20 generations</strong> (0.01 seconds). 
+                            Ranking selection was used to prioritize higher fitness individuals while maintaining diversity.
+                        </p>
+                    </div>
+                </div>
+
+                <img src="./images/ga-convergence.png" class="project-full-img">
+
+                <h3 class="project-section-title">Holland Schema Theorem</h3>
+                <p style="color: #ccc; line-height: 1.6;">
+                    This section validates the <strong>Building Block Hypothesis</strong>, which states that short, low-order schemata with above-average fitness increase exponentially in frequency.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-check" style="color:#FFD700; margin-right:8px;"></i> Good Schema</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            <strong>Definition:</strong> <code>Coeff[0] == 25</code><br>
+                            Observed an exponential increase in instances, aligning closely with the theoretical estimate, proving the selection pressure favours beneficial traits.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-xmark" style="color:#ff5555; margin-right:8px;"></i> Bad Schema</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            <strong>Definition:</strong> <code>Coeff[1] == 10</code><br>
+                            Instances rapidly decayed to near zero. The "disruption" caused by crossover and mutation effectively filtered out these lower-fitness genes over time.
+                        </p>
+                    </div>
+                </div>
+
+                <img src="./images/holland-schema.png" class="project-full-img">
+
+                <h3 class="project-section-title">Conclusion</h3>
+                <p style="color: #a0a0a0; line-height: 1.6;">
+                    The study confirmed that while mutation introduces necessary diversity to prevent local optima, <strong>Selection Pressure</strong> is the primary driver of convergence. 
+                    The results successfully demonstrated the Schema Theorem mechanics, with "Good" schemata dominating the population as generations progressed.
+                </p>
+            `
+        },
+        {
+            id: "PIC16F84A Embedded Projects",
+            subtitle: "Assembly & C Embedded Systems",
+            icon: "fa-solid fa-calculator",
+            tags: ["C/C++", "Embedded Systems", "Hardware Design", "Assembly Language", "Optimisation"],
+            links: { github: null, report: null },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">MPLAB X</span>
+                    <span class="tech-badge">Assembly (ASM)</span>
+                    <span class="tech-badge">Embedded C</span>
+                    <span class="tech-badge">PIC16F84A</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    A series of hardware integration projects using the <strong>PIC16F84A Microcontroller</strong>. 
+                    The projects explore low-level resource management, shifting from raw <strong>Assembly Language</strong> for timing-critical applications to <strong>C</strong> for complex peripheral handling.
+                </p>
+
+                <h3 class="project-section-title">1. Digital Stopwatch</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                    <strong>Language:</strong> Assembly
+                </p>
+                <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+                    Engineered a precision stopwatch using <strong>Timer0 interrupts</strong> to maintain accurate timekeeping independent of the main execution loop. 
+                    Utilized multiplexing to drive the 7-segment displays efficiently. Stopwatch Multiplexing Demo (10x Slow Motion) shown below:
+                </p>
+                
+                <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
+                    <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                        <source src="./videos/stopwatch-demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <h3 class="project-section-title">2. Digital Combination Lock</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                    <strong>Language:</strong> Assembly
+                </p>
+                <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
+                    Implemented a secure logic system that accepts a specific 4-digit input from a keypad. 
+                    Features include input debouncing and a state machine to handle "Locked", "Unlocked", and "Error" states.
+                </p>
+                
+                <img src="./images/pic-lock.png" class="project-full-img" alt="Digital Lock Circuit">
+
+                <h3 class="project-section-title">3. Digital Voltmeter</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                    <strong>Language:</strong> C
+                </p>
+                <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
+                    Developed a voltage measurement tool interacting with an <strong>MCP3001 ADC</strong>. 
+                    Unlike previous projects, this was written in <strong>C</strong> to handle the complex <strong>SPI communication</strong> and bit manipulation required to decode the 10-bit ADC data.
+                </p>
+                
+                <img src="./images/pic-voltmeter.png" class="project-full-img" alt="Voltmeter SPI Setup">
+            `
+        },
+        {
+            id: "Healthtech Company Analysis",
+            subtitle: "Sensoria Health Case Study",
+            icon: "fa-solid fa-user-doctor",
+            tags: ["Business Analysis", "Technical Writing", "Market Research"],
+            links: {
+                github: null,
+                report: "https://drive.google.com/file/d/1vZNCGLDPQ4ulWxkBNVn9v0YebZ-gMuJY/view?usp=drive_link"
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">Business Analysis</span>
+                    <span class="tech-badge">Market Strategy</span>
+                    <span class="tech-badge">SEO & Digital Marketing</span>
+                    <span class="tech-badge">Wearable Tech (IoMe)</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    A comprehensive business case study of <strong>Sensoria Health</strong>, a pioneer in the "Internet of Me" (IoMe) sector. 
+                    The report analyses their strategic pivot from general fitness to <strong>clinical-grade medical wearables</strong>, focusing on their smart garment technology and remote patient monitoring ecosystems.
+                </p>
+
+                <h3 class="project-section-title">Strategic Analysis</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    <strong>Core Identity:</strong> "The Garment is the Computer". Moving beyond wristbands to textile-embedded sensors.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-shirt" style="color:#64ffda; margin-right:8px;"></i> Smart Textiles</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Analysis of Sensoria's proprietary textile sensors which allow for comfortable, 24/7 monitoring of gait and rehabilitation metrics, overcoming the limitations of rigid hardware.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-hospital-user" style="color:#2196F3; margin-right:8px;"></i> Clinical Focus</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Evaluated the partnership with <strong>Genesis Healthcare</strong>, allowing Sensoria to leverage clinical patient outreach while providing data-driven rehabilitation tools for clinicians.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Digital Marketing Strategy</h3>
+                <p style="color: #ccc; line-height: 1.6;">
+                    An audit of Sensoria's digital presence revealed a need for stronger B2B targeting. The report proposes a "Storytelling" approach to build brand trust in the medical sector.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-magnifying-glass-chart" style="color:#FFD700; margin-right:8px;"></i> SEO Optimization</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            <strong>Problem:</strong> Low organic traffic for medical keywords.<br>
+                            <strong>Solution:</strong> Implementation of long-tail keywords (e.g., "Remote Gait Monitoring") to capture high-intent medical professionals rather than casual fitness users.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-book-open" style="color:#ff5555; margin-right:8px;"></i> Brand Storytelling</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Proposed a content strategy focusing on <strong>Patient Success Stories</strong>. 
+                            Moving away from technical specs to emotional narratives that demonstrate real-world recovery and quality-of-life improvements.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Key Recommendations</h3>
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Website Restructuring:</strong> Create dedicated portals for "Clinicians" vs "Patients" to streamline the user journey and improve conversion rates.</li>
+                    <li><strong>IoMe Expansion:</strong> Leverage the open ecosystem to integrate with third-party medical footwear, creating a unified data platform for total body monitoring.</li>
+                </ul>
+            `
+        },
+            {
+            id: "Non-Invasive Prosthetic Control",
+            subtitle: "EEG/EMG Control & Signal Processing",
+            icon: "fa-solid fa-robot",
+            tags: ["Control Theory", "Signal Processing", "Machine Learning", "Python"],
+            links: { github: null, report: null },
+            richContent: `<p style="color:#ccc;">FYP Details coming soon...</p>`
+        }
+    ];
+
+    const graphNodes = [
+        ...masterProjects.map(p => ({id: p.id, group: "project"})),
+        ...skillNodes
+    ];
+
+    const graphLinks = [];
+    masterProjects.forEach(project => {
+        project.tags.forEach(tag => {
+            // Only add link if the tag exists in our skill list (prevents crashes)
+            if (skillNodes.find(s => s.id === tag)) {
+                graphLinks.push({ source: tag, target: project.id });
+            }
+        });
+    });
+
+    const graphData = { nodes: graphNodes, links: graphLinks };
+
+    const projectListContainer = document.getElementById('project-list');
+    if (projectListContainer) {
+        projectListContainer.innerHTML = ''; // Clear existing
+        masterProjects.forEach(p => {
+            // Generate Tags HTML
+            const tagsHtml = p.tags.slice(0, 3).map(t => `<span class="tiny-tag">${t}</span>`).join('');
             
-            // Domain Specific
-            {id: "ROS", group: "skill"},
-            {id: "Embedded Systems", group: "skill"},
-            {id: "Machine Learning", group: "skill"},
-            {id: "Control Theory", group: "skill"},
-            {id: "Signal Processing", group: "skill"},
-            {id: "FPGA", group: "skill"},
-            {id: "Hardware Design", group: "skill"},
-            
-            // Technologies/Tools
-            {id: "Flutter", group: "skill"},
-            {id: "Bluetooth LE", group: "skill"},
-            {id: "STM32", group: "skill"},
-            {id: "Arduino", group: "skill"},
-            {id: "Linux", group: "skill"},
-
-            // Misc.
-            {id: "Technical Writing", group: "skill"},
-            {id: "Business Analysis", group: "skill"},
-            {id: "Market Research", group: "skill"},
-            {id: "Robotics Design", group: "skill"}
-        ],
-        links: [
-            // 1. LM Health Knee Brace (Repo: medical_lego_module_control)
-            {source: "Python", target: "LM Health Knee Brace"},
-            {source: "Flutter", target: "LM Health Knee Brace"},
-            {source: "Bluetooth LE", target: "LM Health Knee Brace"},
-            {source: "Embedded Systems", target: "LM Health Knee Brace"},
-            {source: "Dart", target: "LM Health Knee Brace"},
-            {source: "Linux", target: "LM Health Knee Brace"},
-            {source: "Arduino", target: "LM Health Knee Brace"},
-            {source: "Market Research", target: "LM Health Knee Brace"},
-            {source: "Technical Writing", target: "LM Health Knee Brace"},
-            {source: "Business Analysis", target: "LM Health Knee Brace"},
-
-            // 2. Non-Invasive Prosthetic Control (Final Year Project)
-            {source: "Control Theory", target: "Non-Invasive Prosthetic Control"},
-            {source: "Signal Processing", target: "Non-Invasive Prosthetic Control"},
-            // {source: "Python", target: "Non-Invasive Prosthetic Control"},
-            {source: "Machine Learning", target: "Non-Invasive Prosthetic Control"},
-
-            // 3. Neuron Spike Detector (Repo: Neuron-Spike-Classifier)
-            {source: "Python", target: "Neuron Spike Detector"},
-            {source: "Machine Learning", target: "Neuron Spike Detector"},
-            {source: "Signal Processing", target: "Neuron Spike Detector"},
-
-            // 4. CoppeliaSim Robot Simulation (CV Project)
-            {source: "ROS", target: "CoppeliaSim Robot Simulation"},
-            {source: "Python", target: "CoppeliaSim Robot Simulation"},
-            {source: "Linux", target: "CoppeliaSim Robot Simulation"},
-            {source: "Machine Learning", target: "CoppeliaSim Robot Simulation"},
-
-            // 5. FPGA RISC CPU (Repo: FPGA-CPU-And-Pong-Game)
-            {source: "SystemVerilog", target: "FPGA RISC CPU"},
-            {source: "FPGA", target: "FPGA RISC CPU"},
-            {source: "Hardware Design", target: "FPGA RISC CPU"},
-            {source: "Embedded Systems", target: "FPGA RISC CPU"},
-
-            // 6. Nucleo Fan Controller (Repo: Nucleo-Fan-Controller)
-            {source: "STM32", target: "Nucleo Fan Controller"},
-            {source: "C/C++", target: "Nucleo Fan Controller"},
-            {source: "Embedded Systems", target: "Nucleo Fan Controller"},
-            {source: "Hardware Design", target: "Nucleo Fan Controller"},
-            {source: "Control Theory", target: "Nucleo Fan Controller"},
-
-            // 7. Biomimetic Shoulders Lit. Review (PDF)
-            {source: "Technical Writing", target: "Biomimetic Shoulders Lit. Review"},
-            {source: "Robotics Design", target: "Biomimetic Shoulders Lit. Review"},
-
-            // 8. Healthtech Company Analysis (PDF)
-            {source: "Technical Writing", target: "Healthtech Company Analysis"},
-            {source: "Market Research", target: "Healthtech Company Analysis"},
-            {source: "Business Analysis", target: "Healthtech Company Analysis"},
-
-            // 9. GA Report
-            {source: "Python", target: "Genetic Algorithm Analysis"},
-            {source: "Technical Writing", target: "Genetic Algorithm Analysis"},
-
-            // 10. PIC Projects
-            {source: "Embedded Systems", target: "PIC16F84A Embedded Projects"},
-            {source: "C/C++", target: "PIC16F84A Embedded Projects"},
-            {source: "Hardware Design", target: "PIC16F84A Embedded Projects"}
-        ]
-    };
-
-    // Mapping for Cards to Data (simple lookup)
-    const projectDetails = {
-        "smart-knee": graphData.nodes.find(n => n.id === "LM Health Knee Brace"),
-        "shoulder-prosthetic": graphData.nodes.find(n => n.id === "Non-Invasive Prosthetic Control"),
-        "spike-detector": graphData.nodes.find(n => n.id === "Spike Detector")
-    };
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.setAttribute('data-id', p.id);
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-img-holder"><i class="${p.icon}"></i></div>
+                    <div class="card-info">
+                        <h3>${p.id}</h3>
+                        <p>${p.subtitle}</p>
+                    </div>
+                </div>
+                <div class="card-tags">
+                    ${tagsHtml}
+                    ${p.tags.length > 3 ? '<span class="tiny-tag">...</span>' : ''}
+                </div>
+            `;
+            projectListContainer.appendChild(card);
+        });
+    }
 
     // =========================================================
     // 2. D3.js GRAPH VISUALIZATION
@@ -275,9 +799,8 @@ const graphData = {
         .attr("text-anchor", "middle") // Centers text horizontally
         .attr("pointer-events", "none") // Prevents text from interfering with drag clicks
         .attr("dy", d => {
-            // Calculate the radius exactly as we did for the node: 5 + (connections * 2)
             const radius = 5 + (d.connections * 0.5);
-            // Add radius + padding (e.g., 15px) to push text below the circle
+            // Add radius + padding to push text below the circle
             return radius + 15; 
         });
 
@@ -324,532 +847,6 @@ const graphData = {
     // 3. MODAL INTERACTION LOGIC
     // =========================================================
 
-    // --- RICH CONTENT DATA STORE ---
-    const richProjectData = {
-        // FIXED: Key must match the node ID exactly ("LM Health Knee Brace")
-        "LM Health Knee Brace": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">Flutter / Dart</span>
-                <span class="tech-badge">C++ (Embedded)</span>
-                <span class="tech-badge">Bluetooth LE</span>
-                <span class="tech-badge">System Architecture</span>
-            </div>
-
-            <img src="./images/lm-health-subsystem-diagram.png" class="project-full-img" alt="Subsystem Integration Diagram">
-
-            <p style="color: #ccc; line-height: 1.6;">
-                Engineered the <strong>Integration & Control sub-system</strong> for a modular smart knee brace designed for rehabilitation and pain relief. 
-                The system bridges high-level user inputs with low-level hardware control using a robust BLE network.
-            </p>
-
-            <h3 class="project-section-title">Key Engineering Features</h3>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-mobile-screen" style="color:#64ffda;"></i> Cross-Platform App</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Developed a <strong>Flutter-based mobile application</strong> serving as the central control hub. 
-                        Features include real-time device scanning, user profiles, and a dynamic dashboard for therapy management.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-brands fa-bluetooth-b" style="color:#2196F3;"></i> BLE Communication</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Implemented a custom BLE protocol using <strong>UUID-based Services and Characteristics</strong>. 
-                        Ensures low-latency communication between the central hub and multiple peripheral therapy modules.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-microchip" style="color:#FFD700;"></i> OOP Firmware</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Designed modular C++ firmware using <strong>Object-Oriented Programming</strong>. 
-                        Utilized state machines to manage "Active" and "Inactive" therapy states safely and efficiently.
-                    </p>
-                </div>
-            </div>
-
-            <h3 class="project-section-title">Testing & Validation Setup</h3>
-            
-            <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
-                To validate the system architecture before hardware integration, a <strong>Virtual Peripheral</strong> was engineered using <strong>Linux Debian</strong>. 
-                By leveraging <strong>Python</strong> and the <strong>BlueZ</strong> stack, I simulated the BLE characteristics of the physical knee brace, allowing for rapid iteration of the Flutter control logic without hardware dependencies.
-            </p>
-
-            <img src="./images/testing-configuration.png" class="project-full-img" alt="Testing Configuration Setup with Arduino and Linux">
-
-            <h3 class="project-section-title">System Highlights</h3>
-            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
-                <li><strong>Scalable Architecture:</strong> Decoupled UI from hardware logic for easy expansion.</li>
-                <li><strong>Robust Error Handling:</strong> Automatic reconnection and signal loss management.</li>
-            </ul>
-        `,
-
-        "Neuron Spike Detector": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">Python 3.12</span>
-                <span class="tech-badge">PyTorch (CNN)</span>
-                <span class="tech-badge">Scikit-learn (PCA)</span>
-                <span class="tech-badge">Signal Processing</span>
-            </div>
-
-            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
-                Developed a hybrid signal processing pipeline to detect and classify neural spikes from raw brain wave data. 
-                The system utilizes a <strong>1D Convolutional Neural Network (CNN)</strong> for peak detection and a <strong>PCA-based Multi-Layer Perceptron (MLP)</strong> for classification.
-            </p>
-
-            <h3 class="project-section-title">System Architecture</h3>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-wave-square" style="color:#64ffda; margin-right:8px;"></i> Pre-Processing</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Signals are cleaned using a median subtraction filter for drift removal, a Savitzky-Golay filter for high-frequency noise, and <strong>wavelet denoising</strong> for smoothing.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-magnifying-glass-chart" style="color:#2196F3; margin-right:8px;"></i> CNN Detection</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        A 1D CNN with ReLU and max-pooling slides across the signal to isolate potential spikes. 
-                        This approach ensures <strong>translation invariance</strong> and robustness against phase shifts.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-network-wired" style="color:#FFD700; margin-right:8px;"></i> PCA-MLP Classifier</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Detected spikes are dimensionality-reduced to <strong>50 components</strong> using PCA. 
-                        These features are fed into a 3-layer MLP to classify the signal into one of 5 spike classes or noise.
-                    </p>
-                </div>
-            </div>
-
-            <h3 class="project-section-title">Performance at Varying Noise Levels</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
-                Performance remains strong (Precision 0.97-1.00) at high SNRs but degrades at 0dB as noise amplitudes exceed feature strength.
-            </p>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
-                <div>
-                    <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold;">D1 (80dB) - Test Set</span>
-                    <img src="./images/D1_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D1 Classification Graph">
-                </div>
-                <div>
-                    <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D2 (60dB) - Validation</span>
-                    <img src="./images/D2_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D2 Classification Graph">
-                </div>
-                <div>
-                    <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D3 (40dB) - Validation</span>
-                    <img src="./images/D3_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D3 Classification Graph">
-                </div>
-                <div>
-                    <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">D4 (20dB) - Validation</span>
-                    <img src="./images/D4_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D4 Classification Graph">
-                </div>
-                <div>
-                    <span style="color: #ff5555; font-size: 0.8rem; font-weight: bold;">D5 (0dB) - Validation</span>
-                    <img src="./images/D5_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D5 Classification Graph">
-                </div>
-                <div>
-                    <span style="color: #ff5555; font-size: 0.8rem; font-weight: bold;">D6 (<0dB) - Validation</span>
-                    <img src="./images/D6_Detected_Peaks_Plot.png" class="project-full-img" style="margin-bottom: 0; height: 150px;" alt="D6 Classification Graph">
-                </div>
-            </div>
-
-            <h3 class="project-section-title">Engineering Challenges & Solutions</h3>
-            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
-                <li><strong>Data Augmentation:</strong> Generated synthetic noisy datasets by superimposing real background noise (from D6) onto clean spikes (D1) to match SNR levels.</li>
-                <li><strong>Hard Negative Mining:</strong> Trained the model on "offset windows" (5–50 samples from peak) to force the network to distinguish true peaks from edge artifacts.</li>
-            </ul>
-        `,
-
-        "Genetic Algorithm Analysis": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">Matplotlib</span>
-                <span class="tech-badge">Optimization</span>
-                <span class="tech-badge">Evolutionary Computation</span>
-            </div>
-
-            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
-                An in-depth analysis of <strong>Genetic Algorithms (GA)</strong> applied to numerical optimization problems. 
-                The study investigates the impact of hyperparameters on convergence speed and validates the <strong>Schema Theorem</strong> 
-                by tracking the propagation of "building blocks" through generations.
-            </p>
-
-            <h3 class="project-section-title">Numerical Optimization For Sums of Sets with N Numbers</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
-                <strong>Objective:</strong> Optimise a set of N numbers to sum to a specific target value (550).
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-sliders" style="color:#64ffda; margin-right:8px;"></i> Hyperparameters</h4>
-                    <ul style="font-size: 0.85rem; color: #a0a0a0; padding-left: 20px; line-height: 1.6;">
-                        <li><strong>Population:</strong> 400 individuals</li>
-                        <li><strong>Mutation Rate:</strong> 0.01 (1%)</li>
-                        <li><strong>Retain Rate:</strong> 0.20 (Elitism)</li>
-                        <li><strong>Crossover:</strong> Single-point (1.00 rate)</li>
-                    </ul>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-chart-line" style="color:#2196F3; margin-right:8px;"></i> Performance</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        The optimized GA achieved convergence in just <strong>20 generations</strong> (0.01 seconds). 
-                        Ranking selection was used to prioritize higher fitness individuals while maintaining diversity.
-                    </p>
-                </div>
-            </div>
-
-            <img src="./images/ga-convergence.png" class="project-full-img">
-
-            <h3 class="project-section-title">Holland Schema Theorem</h3>
-            <p style="color: #ccc; line-height: 1.6;">
-                This section validates the <strong>Building Block Hypothesis</strong>, which states that short, low-order schemata with above-average fitness increase exponentially in frequency.
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-check" style="color:#FFD700; margin-right:8px;"></i> Good Schema</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        <strong>Definition:</strong> <code>Coeff[0] == 25</code><br>
-                        Observed an exponential increase in instances, aligning closely with the theoretical estimate, proving the selection pressure favours beneficial traits.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-xmark" style="color:#ff5555; margin-right:8px;"></i> Bad Schema</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        <strong>Definition:</strong> <code>Coeff[1] == 10</code><br>
-                        Instances rapidly decayed to near zero. The "disruption" caused by crossover and mutation effectively filtered out these lower-fitness genes over time.
-                    </p>
-                </div>
-            </div>
-
-            <img src="./images/holland-schema.png" class="project-full-img">
-
-            <h3 class="project-section-title">Conclusion</h3>
-            <p style="color: #a0a0a0; line-height: 1.6;">
-                The study confirmed that while mutation introduces necessary diversity to prevent local optima, <strong>Selection Pressure</strong> is the primary driver of convergence. 
-                The results successfully demonstrated the Schema Theorem mechanics, with "Good" schemata dominating the population as generations progressed.
-            </p>
-        `,
-
-        "CoppeliaSim Robot Simulation": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">ROS / ROS 2</span>
-                <span class="tech-badge">CoppeliaSim</span>
-                <span class="tech-badge">Computer Vision (CNN)</span>
-            </div>
-
-            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
-                Designed and simulated a differential drive mobile robot in <strong>CoppeliaSim</strong> controlled via a custom <strong>ROS</strong> architecture. 
-                The system features a hybrid obstacle avoidance algorithm using LIDAR and proximity sensors, and a deep-learning-based controller that navigates using visual cues.
-            </p>
-
-            <h3 class="project-section-title">Task 1: Reactive Obstacle Avoidance</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
-                <strong>Objective:</strong> Navigate a walled maze autonomously without collisions.
-            </p>
-            
-            <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
-                <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
-                    <source src="./videos/obstacle-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="feature-grid" style="margin-top: 20px;">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-bullseye" style="color:#64ffda; margin-right:8px;"></i> LIDAR Navigation</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Processed <code>/scan</code> data to detect the furthest open path. 
-                        Implemented dynamic thresholding to ignore backward-facing paths, forcing forward progression.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-road" style="color:#2196F3; margin-right:8px;"></i> Proximity Safety</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Integrated 8 proximity sensors to detect immediate wall collisions. 
-                        Used proportional control to actively steer away from walls when the LIDAR path was too close.
-                    </p>
-                </div>
-            </div>
-
-            <h3 class="project-section-title">Task 2: CNN Visual Control</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
-                <strong>Objective:</strong> Control robot movement by classifying arrow directions (Up, Down, Left, Right) from a camera feed.
-            </p>
-
-            <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
-                <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
-                    <source src="./videos/arrow-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8; margin-top: 15px;">
-                <li><strong>Model Architecture:</strong> Custom CNN with 2 Convolutional/Pooling layers and a Fully Connected output layer. Utilized <strong>Dropout</strong> to prevent overfitting.</li>
-                <li><strong>Performance:</strong> Achieved <strong>>97% accuracy</strong> on the validation set of ~4000 arrow images.</li>
-                <li><strong>Integration:</strong> The model runs in a ROS node, processing images in real-time and publishing <code>/cmd_vel</code> commands to drive the robot.</li>
-            </ul>
-        `,
-
-        "Nucleo Fan Controller": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">C / C++</span>
-                <span class="tech-badge">STM32</span>
-                <span class="tech-badge">PID Control</span>
-                <span class="tech-badge">I2C / PWM</span>
-            </div>
-
-            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
-                Developed a robust embedded fan controller on an <strong>STM32 Nucleo-64</strong> board. 
-                The system features real-time <strong>Closed-Loop PID Control</strong> for both Fan Speed (RPM) and Temperature, allowing precise regulation based on sensor feedback.
-            </p>
-
-            <img src="./images/fan-controller.jpg" class="project-full-img" alt="Fan Controller Setup">
-
-            <h3 class="project-section-title">Control Modes</h3>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-gauge-high" style="color:#64ffda; margin-right:8px;"></i> Open Loop</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Direct control of the fan's PWM Duty Cycle (0-100%) using the rotary encoder. 
-                        Useful for manual testing and characterizing the fan's max speed.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-rotate" style="color:#2196F3; margin-right:8px;"></i> Closed Loop RPM</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Maintains a specific target RPM (60-2600 RPM) regardless of load changes. 
-                        Utilizes a <strong>PID algorithm</strong> (ComputeFanPID) to dynamically adjust PWM based on tachometer feedback.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-temperature-half" style="color:#FFD700; margin-right:8px;"></i> Thermal Control</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Adjusts fan speed to maintain a target temperature. 
-                        Reads external temperature sensors via I2C and uses a secondary PID loop (ComputeTempPID) to stabilize the system.
-                    </p>
-                </div>
-            </div>
-
-            <h3 class="project-section-title">System Architecture</h3>
-            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
-                <li><strong>Interrupt-Driven Inputs:</strong> Tachometer readings and User Inputs (Button/Encoder) are handled via Interrupt Service Routines (ISRs) for microsecond-level precision.</li>
-                <li><strong>State Machine Design:</strong> Implemented a robust state machine to handle mode switching and OLED screen updates without blocking the main control loop.</li>
-            </ul>
-        `,
-        
-        "Healthtech Company Analysis": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">Business Analysis</span>
-                <span class="tech-badge">Market Strategy</span>
-                <span class="tech-badge">SEO & Digital Marketing</span>
-                <span class="tech-badge">Wearable Tech (IoMe)</span>
-            </div>
-
-            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
-                A comprehensive business case study of <strong>Sensoria Health</strong>, a pioneer in the "Internet of Me" (IoMe) sector. 
-                The report analyses their strategic pivot from general fitness to <strong>clinical-grade medical wearables</strong>, focusing on their smart garment technology and remote patient monitoring ecosystems.
-            </p>
-
-            <h3 class="project-section-title">Strategic Analysis</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
-                <strong>Core Identity:</strong> "The Garment is the Computer". Moving beyond wristbands to textile-embedded sensors.
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-shirt" style="color:#64ffda; margin-right:8px;"></i> Smart Textiles</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Analysis of Sensoria's proprietary textile sensors which allow for comfortable, 24/7 monitoring of gait and rehabilitation metrics, overcoming the limitations of rigid hardware.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-hospital-user" style="color:#2196F3; margin-right:8px;"></i> Clinical Focus</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Evaluated the partnership with <strong>Genesis Healthcare</strong>, allowing Sensoria to leverage clinical patient outreach while providing data-driven rehabilitation tools for clinicians.
-                    </p>
-                </div>
-            </div>
-
-            <h3 class="project-section-title">Digital Marketing Strategy</h3>
-            <p style="color: #ccc; line-height: 1.6;">
-                An audit of Sensoria's digital presence revealed a need for stronger B2B targeting. The report proposes a "Storytelling" approach to build brand trust in the medical sector.
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-magnifying-glass-chart" style="color:#FFD700; margin-right:8px;"></i> SEO Optimization</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        <strong>Problem:</strong> Low organic traffic for medical keywords.<br>
-                        <strong>Solution:</strong> Implementation of long-tail keywords (e.g., "Remote Gait Monitoring") to capture high-intent medical professionals rather than casual fitness users.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-book-open" style="color:#ff5555; margin-right:8px;"></i> Brand Storytelling</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Proposed a content strategy focusing on <strong>Patient Success Stories</strong>. 
-                        Moving away from technical specs to emotional narratives that demonstrate real-world recovery and quality-of-life improvements.
-                    </p>
-                </div>
-            </div>
-
-            <h3 class="project-section-title">Key Recommendations</h3>
-            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
-                <li><strong>Website Restructuring:</strong> Create dedicated portals for "Clinicians" vs "Patients" to streamline the user journey and improve conversion rates.</li>
-                <li><strong>IoMe Expansion:</strong> Leverage the open ecosystem to integrate with third-party medical footwear, creating a unified data platform for total body monitoring.</li>
-            </ul>
-        `,
-
-        "FPGA RISC CPU": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">SystemVerilog</span>
-                <span class="tech-badge">Quartus Prime</span>
-                <span class="tech-badge">Assembly Language</span>
-                <span class="tech-badge">Digital Logic Design</span>
-            </div>
-
-            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
-                Designed and implemented a custom <strong>HighRISC Microprocessor</strong> on a <strong>5CSEMA5F31C6 FPGA</strong> board. 
-                The project involved building the CPU from scratch using SystemVerilog, defining a custom <strong>Instruction Set Architecture (ISA)</strong>, and writing Assembly drivers to render a playable Pong game via VGA.
-            </p>
-
-            <img src="./images/cpu-architecture.png" class="project-full-img" alt="HighRISC CPU Architecture">
-
-            <h3 class="project-section-title">Processor Architecture</h3>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-diagram-project" style="color:#64ffda; margin-right:8px;"></i> Custom ISA</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Defined a specific opcode set including <code>LOAD</code>, <code>STORE</code>, and <code>JUMP</code> instructions. 
-                        The Control Unit manages the Fetch-Decode-Execute cycle, coordinating data flow between the ALU, Registers, and RAM.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <h4><i class="fa-solid fa-memory" style="color:#2196F3; margin-right:8px;"></i> Memory & I/O</h4>
-                    <p style="font-size: 0.9rem; color: #a0a0a0;">
-                        Implemented a von Neumann architecture where program code and video memory share the address space. 
-                        This allows the CPU to write directly to VGA buffers to update game state pixels in real-time.
-                    </p>
-                </div>
-            </div>
-
-            <h3 class="project-section-title">Pong Game Implementation</h3>
-            <p style="color: #ccc; line-height: 1.6;">
-                The final validation involved writing a complete game in Assembly to demonstrate the CPU's capabilities.
-            </p>
-
-            <img src="./images/pong-game.jpg" class="project-full-img" style="margin-top: 20px;" alt="FPGA Pong Game Demo">
-
-            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
-                <li><strong>VGA Driver:</strong> Created a hardware module to generate strict H-Sync and V-Sync timing signals for 640x480 resolution.</li>
-                <li><strong>Game Logic:</strong> Handled collision detection and paddle movement by reading the FPGA's physical buttons and updating the frame buffer on every clock cycle.</li>
-            </ul>
-        `,
-
-        "PIC16F84A Embedded Projects": `
-            <div class="tech-stack-container">
-                <span class="tech-badge">MPLAB X</span>
-                <span class="tech-badge">Assembly (ASM)</span>
-                <span class="tech-badge">Embedded C</span>
-                <span class="tech-badge">PIC16F84A</span>
-            </div>
-
-            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
-                A series of hardware integration projects using the <strong>PIC16F84A Microcontroller</strong>. 
-                The projects explore low-level resource management, shifting from raw <strong>Assembly Language</strong> for timing-critical applications to <strong>C</strong> for complex peripheral handling.
-            </p>
-
-            <h3 class="project-section-title">1. Digital Stopwatch</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
-                <strong>Language:</strong> Assembly
-            </p>
-            <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
-                Engineered a precision stopwatch using <strong>Timer0 interrupts</strong> to maintain accurate timekeeping independent of the main execution loop. 
-                Utilized multiplexing to drive the 7-segment displays efficiently. Stopwatch Multiplexing Demo (10x Slow Motion) shown below:
-            </p>
-            
-            <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
-                <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
-                    <source src="./videos/stopwatch-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <h3 class="project-section-title">2. Digital Combination Lock</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
-                <strong>Language:</strong> Assembly
-            </p>
-            <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
-                Implemented a secure logic system that accepts a specific 4-digit input from a keypad. 
-                Features include input debouncing and a state machine to handle "Locked", "Unlocked", and "Error" states.
-            </p>
-            
-            <img src="./images/pic-lock.png" class="project-full-img" alt="Digital Lock Circuit">
-
-            <h3 class="project-section-title">3. Digital Voltmeter</h3>
-            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
-                <strong>Language:</strong> C
-            </p>
-            <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
-                Developed a voltage measurement tool interacting with an <strong>MCP3001 ADC</strong>. 
-                Unlike previous projects, this was written in <strong>C</strong> to handle the complex <strong>SPI communication</strong> and bit manipulation required to decode the 10-bit ADC data.
-            </p>
-            
-            <img src="./images/pic-voltmeter.png" class="project-full-img" alt="Voltmeter SPI Setup">
-        `
-    };
-
-    // Links for the footer buttons
-    const projectLinks = {
-        "LM Health Knee Brace": {
-            github: "https://github.com/Ac3CJ/medical_lego_module_control",
-            report: "https://drive.google.com/file/d/18t0PpNwJsv1cveEKvQrYPH3RShImtgQ5/view?usp=drive_link"
-        },
-        "Neuron Spike Detector": {
-            github: "https://github.com/Ac3CJ/Neuron-Spike-Classifier",
-            report: null
-        },
-        "Genetic Algorithm Analysis": {
-            github: null, 
-            report: "https://drive.google.com/file/d/1mDeMOMkM67sBqn7Kyqi_ZcT4a4vYf2ZE/view?usp=drive_link"
-        },
-        "CoppeliaSim Robot Simulation": {
-            github: "https://github.com/Ac3CJ/ros-coppeliasim-robot-cw",
-            report: "https://drive.google.com/file/d/1uEhiBZxMzIcx5-P6cUhvjCAX-VJPBq-M/view?usp=drive_link"
-        },
-        "Nucleo Fan Controller": {
-            github: "https://github.com/Ac3CJ/Nucleo-Fan-Controller",
-            report: null
-        },
-        "Healthtech Company Analysis": {
-            github: null,
-            report: "https://drive.google.com/file/d/1vZNCGLDPQ4ulWxkBNVn9v0YebZ-gMuJY/view?usp=drive_link"
-        },
-        "FPGA RISC CPU": {
-            github: "https://github.com/Ac3CJ/FPGA-CPU-And-Pong-Game",
-            report: null
-        },
-        "PIC16F84A Embedded Projects": {
-            github: null, 
-            report: null 
-        }
-    };
-
     // --- Modal Logic ---
     const modal = document.getElementById("project-modal");
     const closeModalBtn = document.querySelector(".close-modal");
@@ -860,64 +857,31 @@ const graphData = {
     function openModal(data) {
         if(!data) return;
 
+        // Find the project details in masterProjects
+        const project = masterProjects.find(p => p.id === data.id);
+        
         // 1. Set Title
         modalTitle.textContent = data.id;
 
         // 2. Set Content
-        if (richProjectData[data.id]) {
-            // A. Use Custom Rich HTML if available
-            modalBody.innerHTML = richProjectData[data.id];
+        if (project && project.richContent) {
+            modalBody.innerHTML = project.richContent;
         } else {
-            // B. Fallback for other nodes (Default text + Tags)
-            modalBody.innerHTML = `
-                <p style="font-size: 1.1rem; line-height: 1.6; color: #ccc;">${data.info || "No description available."}</p>
-                <div class="modal-tags" id="fallback-tags" style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;"></div>
-            `;
-            
-            // Add tags dynamically for fallback
-            const related = graphData.links
-                .filter(l => l.source.id === data.id || l.target.id === data.id)
-                .map(l => l.source.id === data.id ? l.target.id : l.source.id);
-            
-            const tagContainer = document.getElementById("fallback-tags");
-            if(tagContainer) {
-                related.forEach(tag => {
-                    const span = document.createElement("span");
-                    span.classList.add("tech-badge");
-                    span.textContent = tag;
-                    tagContainer.appendChild(span);
-                });
-            }
+            // Fallback
+            modalBody.innerHTML = `<p style="color:#ccc;">Details coming soon...</p>`;
         }
 
-        // 3. Set Footer Buttons (Conditional Rendering)
-        const links = projectLinks[data.id];
-        
-        // Clear previous content
+        // 3. Set Footer Buttons
         modalFooter.innerHTML = '';
-        
-        if (links) {
+        if (project && project.links) {
             let buttonsHtml = '';
-
-            // Check if a Report link exists and is not just a placeholder "#"
-            if (links.report && links.report !== "#") {
-                buttonsHtml += `
-                    <a href="${links.report}" target="_blank" class="modal-btn btn-report">
-                        <i class="fa-solid fa-file-pdf"></i> View Report
-                    </a>
-                `;
+            if (project.links.report) {
+                buttonsHtml += `<a href="${project.links.report}" target="_blank" class="modal-btn btn-report"><i class="fa-solid fa-file-pdf"></i> View Report</a>`;
             }
-
-            // Check if a GitHub link exists
-            if (links.github && links.github !== "#") {
-                buttonsHtml += `
-                    <a href="${links.github}" target="_blank" class="modal-btn btn-github">
-                        <i class="fa-brands fa-github"></i> View Code
-                    </a>
-                `;
+            if (project.links.github) {
+                buttonsHtml += `<a href="${project.links.github}" target="_blank" class="modal-btn btn-github"><i class="fa-brands fa-github"></i> View Code</a>`;
             }
-
-            // Render buttons if any exist, otherwise hide footer
+            
             if (buttonsHtml) {
                 modalFooter.innerHTML = buttonsHtml;
                 modalFooter.style.display = "flex";

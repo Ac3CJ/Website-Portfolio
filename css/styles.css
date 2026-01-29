@@ -332,18 +332,19 @@ body {
 
 /* --- 2. Project List --- */
 .project-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    
-    /* LIMIT HEIGHT: roughly fits 4 cards (adjust 450px if needed) */
-    max-height: 450px; 
-    
-    /* ENABLE SCROLLING: */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px;
+    max-height: 600px; /* Increased height for better view */
     overflow-y: auto;
-    
-    /* Padding to prevent text hitting the scrollbar */
-    padding-right: 10px; 
+    padding-right: 10px;
+    overscroll-behavior: contain;
+}
+
+@media (max-width: 900px) {
+    .project-list-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .project-list-container::-webkit-scrollbar {
@@ -366,34 +367,40 @@ body {
 
 .project-card {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* Stack Header and Tags vertically */
     background-color: #252525;
     padding: 15px;
     border-radius: 8px;
     border: 1px solid #333;
     cursor: pointer;
     transition: all 0.2s ease;
-    /* Optional: Red accent as per sketch idea */
-    border-left: 3px solid transparent; 
+    border-left: 3px solid transparent;
 }
 
 .project-card:hover {
     background-color: #2a2a2a;
-    border-left: 3px solid var(--glow-color); /* Glows on hover */
-    transform: translateX(5px);
+    border-left: 3px solid var(--glow-color);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
 .card-img-holder {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-color: #333;
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 20px;
-    font-size: 1.5rem;
+    margin-right: 15px;
+    font-size: 1.2rem;
     color: var(--text-main);
+    flex-shrink: 0;
 }
 
 /* Use this if you replace icons with real images */
@@ -405,13 +412,29 @@ body {
 }
 
 .card-info h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--text-main);
     margin-bottom: 4px;
 }
 
 .card-info p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-left: 65px; /* Indent to align with text */
+}
+
+.tiny-tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #444;
+    border-radius: 4px;
     color: var(--text-muted);
 }
 
