@@ -55,6 +55,7 @@ const graphData = {
             {id: "CoppeliaSim Robot Simulation", group: "project", info: "ROS-based obstacle avoidance and AI control."},
             {id: "FPGA RISC CPU", group: "project", info: "Designed a CPU and Pong game on Cyclone FPGA."},
             {id: "Nucleo Fan Controller", group: "project", info: "STM32-based fan speed controller with user interface."},
+            {id: "PIC16F84A Embedded Projects", group: "project", info: "Assembly & C embedded systems projects programmed on a PIC16F84A"},
 
             // Technical Writing
             {id: "Biomimetic Shoulders Lit. Review", group: "project", info: "Review of kinematic architectures in upper-body robotics."},
@@ -129,7 +130,8 @@ const graphData = {
             {source: "STM32", target: "Nucleo Fan Controller"},
             {source: "C/C++", target: "Nucleo Fan Controller"},
             {source: "Embedded Systems", target: "Nucleo Fan Controller"},
-            {source: "Hardware Design", target: "FPGA RISC CPU"},
+            {source: "Hardware Design", target: "Nucleo Fan Controller"},
+            {source: "Control Theory", target: "Nucleo Fan Controller"},
 
             // 7. Biomimetic Shoulders Lit. Review (PDF)
             {source: "Technical Writing", target: "Biomimetic Shoulders Lit. Review"},
@@ -142,7 +144,12 @@ const graphData = {
 
             // 9. GA Report
             {source: "Python", target: "Genetic Algorithm Analysis"},
-            {source: "Technical Writing", target: "Genetic Algorithm Analysis"} 
+            {source: "Technical Writing", target: "Genetic Algorithm Analysis"},
+
+            // 10. PIC Projects
+            {source: "Embedded Systems", target: "PIC16F84A Embedded Projects"},
+            {source: "C/C++", target: "PIC16F84A Embedded Projects"},
+            {source: "Hardware Design", target: "PIC16F84A Embedded Projects"}
         ]
     };
 
@@ -529,6 +536,281 @@ const graphData = {
                 The study confirmed that while mutation introduces necessary diversity to prevent local optima, <strong>Selection Pressure</strong> is the primary driver of convergence. 
                 The results successfully demonstrated the Schema Theorem mechanics, with "Good" schemata dominating the population as generations progressed.
             </p>
+        `,
+
+        "CoppeliaSim Robot Simulation": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">ROS / ROS 2</span>
+                <span class="tech-badge">CoppeliaSim</span>
+                <span class="tech-badge">Computer Vision (CNN)</span>
+            </div>
+
+            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                Designed and simulated a differential drive mobile robot in <strong>CoppeliaSim</strong> controlled via a custom <strong>ROS</strong> architecture. 
+                The system features a hybrid obstacle avoidance algorithm using LIDAR and proximity sensors, and a deep-learning-based controller that navigates using visual cues.
+            </p>
+
+            <h3 class="project-section-title">Task 1: Reactive Obstacle Avoidance</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                <strong>Objective:</strong> Navigate a walled maze autonomously without collisions.
+            </p>
+            
+            <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
+                <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                    <source src="./videos/obstacle-demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="feature-grid" style="margin-top: 20px;">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-bullseye" style="color:#64ffda; margin-right:8px;"></i> LIDAR Navigation</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Processed <code>/scan</code> data to detect the furthest open path. 
+                        Implemented dynamic thresholding to ignore backward-facing paths, forcing forward progression.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-road" style="color:#2196F3; margin-right:8px;"></i> Proximity Safety</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Integrated 8 proximity sensors to detect immediate wall collisions. 
+                        Used proportional control to actively steer away from walls when the LIDAR path was too close.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="project-section-title">Task 2: CNN Visual Control</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                <strong>Objective:</strong> Control robot movement by classifying arrow directions (Up, Down, Left, Right) from a camera feed.
+            </p>
+
+            <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
+                <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                    <source src="./videos/arrow-demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8; margin-top: 15px;">
+                <li><strong>Model Architecture:</strong> Custom CNN with 2 Convolutional/Pooling layers and a Fully Connected output layer. Utilized <strong>Dropout</strong> to prevent overfitting.</li>
+                <li><strong>Performance:</strong> Achieved <strong>>97% accuracy</strong> on the validation set of ~4000 arrow images.</li>
+                <li><strong>Integration:</strong> The model runs in a ROS node, processing images in real-time and publishing <code>/cmd_vel</code> commands to drive the robot.</li>
+            </ul>
+        `,
+
+        "Nucleo Fan Controller": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">C / C++</span>
+                <span class="tech-badge">STM32</span>
+                <span class="tech-badge">PID Control</span>
+                <span class="tech-badge">I2C / PWM</span>
+            </div>
+
+            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                Developed a robust embedded fan controller on an <strong>STM32 Nucleo-64</strong> board. 
+                The system features real-time <strong>Closed-Loop PID Control</strong> for both Fan Speed (RPM) and Temperature, allowing precise regulation based on sensor feedback.
+            </p>
+
+            <img src="./images/fan-controller.jpg" class="project-full-img" alt="Fan Controller Setup">
+
+            <h3 class="project-section-title">Control Modes</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-gauge-high" style="color:#64ffda; margin-right:8px;"></i> Open Loop</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Direct control of the fan's PWM Duty Cycle (0-100%) using the rotary encoder. 
+                        Useful for manual testing and characterizing the fan's max speed.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-rotate" style="color:#2196F3; margin-right:8px;"></i> Closed Loop RPM</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Maintains a specific target RPM (60-2600 RPM) regardless of load changes. 
+                        Utilizes a <strong>PID algorithm</strong> (ComputeFanPID) to dynamically adjust PWM based on tachometer feedback.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-temperature-half" style="color:#FFD700; margin-right:8px;"></i> Thermal Control</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Adjusts fan speed to maintain a target temperature. 
+                        Reads external temperature sensors via I2C and uses a secondary PID loop (ComputeTempPID) to stabilize the system.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="project-section-title">System Architecture</h3>
+            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                <li><strong>Interrupt-Driven Inputs:</strong> Tachometer readings and User Inputs (Button/Encoder) are handled via Interrupt Service Routines (ISRs) for microsecond-level precision.</li>
+                <li><strong>State Machine Design:</strong> Implemented a robust state machine to handle mode switching and OLED screen updates without blocking the main control loop.</li>
+            </ul>
+        `,
+        
+        "Healthtech Company Analysis": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">Business Analysis</span>
+                <span class="tech-badge">Market Strategy</span>
+                <span class="tech-badge">SEO & Digital Marketing</span>
+                <span class="tech-badge">Wearable Tech (IoMe)</span>
+            </div>
+
+            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                A comprehensive business case study of <strong>Sensoria Health</strong>, a pioneer in the "Internet of Me" (IoMe) sector. 
+                The report analyses their strategic pivot from general fitness to <strong>clinical-grade medical wearables</strong>, focusing on their smart garment technology and remote patient monitoring ecosystems.
+            </p>
+
+            <h3 class="project-section-title">Strategic Analysis</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                <strong>Core Identity:</strong> "The Garment is the Computer". Moving beyond wristbands to textile-embedded sensors.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-shirt" style="color:#64ffda; margin-right:8px;"></i> Smart Textiles</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Analysis of Sensoria's proprietary textile sensors which allow for comfortable, 24/7 monitoring of gait and rehabilitation metrics, overcoming the limitations of rigid hardware.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-hospital-user" style="color:#2196F3; margin-right:8px;"></i> Clinical Focus</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Evaluated the partnership with <strong>Genesis Healthcare</strong>, allowing Sensoria to leverage clinical patient outreach while providing data-driven rehabilitation tools for clinicians.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="project-section-title">Digital Marketing Strategy</h3>
+            <p style="color: #ccc; line-height: 1.6;">
+                An audit of Sensoria's digital presence revealed a need for stronger B2B targeting. The report proposes a "Storytelling" approach to build brand trust in the medical sector.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-magnifying-glass-chart" style="color:#FFD700; margin-right:8px;"></i> SEO Optimization</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        <strong>Problem:</strong> Low organic traffic for medical keywords.<br>
+                        <strong>Solution:</strong> Implementation of long-tail keywords (e.g., "Remote Gait Monitoring") to capture high-intent medical professionals rather than casual fitness users.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-book-open" style="color:#ff5555; margin-right:8px;"></i> Brand Storytelling</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Proposed a content strategy focusing on <strong>Patient Success Stories</strong>. 
+                        Moving away from technical specs to emotional narratives that demonstrate real-world recovery and quality-of-life improvements.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="project-section-title">Key Recommendations</h3>
+            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                <li><strong>Website Restructuring:</strong> Create dedicated portals for "Clinicians" vs "Patients" to streamline the user journey and improve conversion rates.</li>
+                <li><strong>IoMe Expansion:</strong> Leverage the open ecosystem to integrate with third-party medical footwear, creating a unified data platform for total body monitoring.</li>
+            </ul>
+        `,
+
+        "FPGA RISC CPU": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">SystemVerilog</span>
+                <span class="tech-badge">Quartus Prime</span>
+                <span class="tech-badge">Assembly Language</span>
+                <span class="tech-badge">Digital Logic Design</span>
+            </div>
+
+            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                Designed and implemented a custom <strong>HighRISC Microprocessor</strong> on a <strong>5CSEMA5F31C6 FPGA</strong> board. 
+                The project involved building the CPU from scratch using SystemVerilog, defining a custom <strong>Instruction Set Architecture (ISA)</strong>, and writing Assembly drivers to render a playable Pong game via VGA.
+            </p>
+
+            <img src="./images/cpu-architecture.png" class="project-full-img" alt="HighRISC CPU Architecture">
+
+            <h3 class="project-section-title">Processor Architecture</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-diagram-project" style="color:#64ffda; margin-right:8px;"></i> Custom ISA</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Defined a specific opcode set including <code>LOAD</code>, <code>STORE</code>, and <code>JUMP</code> instructions. 
+                        The Control Unit manages the Fetch-Decode-Execute cycle, coordinating data flow between the ALU, Registers, and RAM.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h4><i class="fa-solid fa-memory" style="color:#2196F3; margin-right:8px;"></i> Memory & I/O</h4>
+                    <p style="font-size: 0.9rem; color: #a0a0a0;">
+                        Implemented a von Neumann architecture where program code and video memory share the address space. 
+                        This allows the CPU to write directly to VGA buffers to update game state pixels in real-time.
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="project-section-title">Pong Game Implementation</h3>
+            <p style="color: #ccc; line-height: 1.6;">
+                The final validation involved writing a complete game in Assembly to demonstrate the CPU's capabilities.
+            </p>
+
+            <img src="./images/pong-game.jpg" class="project-full-img" style="margin-top: 20px;" alt="FPGA Pong Game Demo">
+
+            <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8;">
+                <li><strong>VGA Driver:</strong> Created a hardware module to generate strict H-Sync and V-Sync timing signals for 640x480 resolution.</li>
+                <li><strong>Game Logic:</strong> Handled collision detection and paddle movement by reading the FPGA's physical buttons and updating the frame buffer on every clock cycle.</li>
+            </ul>
+        `,
+
+        "PIC16F84A Embedded Projects": `
+            <div class="tech-stack-container">
+                <span class="tech-badge">MPLAB X</span>
+                <span class="tech-badge">Assembly (ASM)</span>
+                <span class="tech-badge">Embedded C</span>
+                <span class="tech-badge">PIC16F84A</span>
+            </div>
+
+            <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                A series of hardware integration projects using the <strong>PIC16F84A Microcontroller</strong>. 
+                The projects explore low-level resource management, shifting from raw <strong>Assembly Language</strong> for timing-critical applications to <strong>C</strong> for complex peripheral handling.
+            </p>
+
+            <h3 class="project-section-title">1. Digital Stopwatch</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                <strong>Language:</strong> Assembly
+            </p>
+            <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+                Engineered a precision stopwatch using <strong>Timer0 interrupts</strong> to maintain accurate timekeeping independent of the main execution loop. 
+                Utilized multiplexing to drive the 7-segment displays efficiently. Stopwatch Multiplexing Demo (10x Slow Motion) shown below:
+            </p>
+            
+            <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent;">
+                <video controls style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                    <source src="./videos/stopwatch-demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <h3 class="project-section-title">2. Digital Combination Lock</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                <strong>Language:</strong> Assembly
+            </p>
+            <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
+                Implemented a secure logic system that accepts a specific 4-digit input from a keypad. 
+                Features include input debouncing and a state machine to handle "Locked", "Unlocked", and "Error" states.
+            </p>
+            
+            <img src="./images/pic-lock.png" class="project-full-img" alt="Digital Lock Circuit">
+
+            <h3 class="project-section-title">3. Digital Voltmeter</h3>
+            <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 10px;">
+                <strong>Language:</strong> C
+            </p>
+            <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
+                Developed a voltage measurement tool interacting with an <strong>MCP3001 ADC</strong>. 
+                Unlike previous projects, this was written in <strong>C</strong> to handle the complex <strong>SPI communication</strong> and bit manipulation required to decode the 10-bit ADC data.
+            </p>
+            
+            <img src="./images/pic-voltmeter.png" class="project-full-img" alt="Voltmeter SPI Setup">
         `
     };
 
@@ -545,6 +827,26 @@ const graphData = {
         "Genetic Algorithm Analysis": {
             github: null, 
             report: "https://drive.google.com/file/d/1mDeMOMkM67sBqn7Kyqi_ZcT4a4vYf2ZE/view?usp=drive_link"
+        },
+        "CoppeliaSim Robot Simulation": {
+            github: "https://github.com/Ac3CJ/ros-coppeliasim-robot-cw",
+            report: "https://drive.google.com/file/d/1uEhiBZxMzIcx5-P6cUhvjCAX-VJPBq-M/view?usp=drive_link"
+        },
+        "Nucleo Fan Controller": {
+            github: "https://github.com/Ac3CJ/Nucleo-Fan-Controller",
+            report: null
+        },
+        "Healthtech Company Analysis": {
+            github: null,
+            report: "https://drive.google.com/file/d/1vZNCGLDPQ4ulWxkBNVn9v0YebZ-gMuJY/view?usp=drive_link"
+        },
+        "FPGA RISC CPU": {
+            github: "https://github.com/Ac3CJ/FPGA-CPU-And-Pong-Game",
+            report: null
+        },
+        "PIC16F84A Embedded Projects": {
+            github: null, 
+            report: null 
         }
     };
 
