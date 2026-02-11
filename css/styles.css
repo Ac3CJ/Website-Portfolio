@@ -46,6 +46,22 @@ body {
     z-index: 100; /* Ensures it stays on top of content */
 }
 
+.logo-box {
+    background-color: transparent; 
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-logo {
+    width: 80%; 
+    height: 80%;
+    object-fit: contain;
+    display: block;
+}
+
 /* --- Profile Header --- */
 .profile-header {
     display: flex;
