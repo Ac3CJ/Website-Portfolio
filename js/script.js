@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "LM Health Knee Brace",
             subtitle: "Integration & Control Systems",
             icon: "fa-solid fa-microchip",
+            bgImage: "../images/lm-health-subsystem-diagram.png",
             tags: ["Flutter/Dart", "C/C++", "Bluetooth LE", "Embedded Systems", "Arduino", "Linux", "System Integration", "Market Research", "Python", "Technical Writing",
                 "Business Analysis"
             ], 
@@ -151,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "Neuron Spike Detector",
             subtitle: "Neural Networks & CNN",
             icon: "fa-solid fa-brain",
+            bgImage: "../images/D1_Detected_Peaks_Plot.jpg",
             tags: ["Python", "Machine Learning", "Signal Processing", "Optimisation"],
             links: {
                 github: "https://github.com/Ac3CJ/Neuron-Spike-Classifier",
@@ -239,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "CoppeliaSim Robot Simulation",
             subtitle: "ROS & Obstacle Avoidance",
             icon: "fa-solid fa-vr-cardboard",
+            bgImage: "../images/lizard-car.jpg",
             tags: ["Python", "ROS", "Machine Learning", "Linux"],
             links: {
                 github: "https://github.com/Ac3CJ/ros-coppeliasim-robot-cw",
@@ -309,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "Nucleo Fan Controller",
             subtitle: "Embedded Systems (STM32)",
             icon: "fa-solid fa-fan",
+            bgImage: "../images/fan-controller.jpg",
             tags: ["C/C++", "STM32", "Embedded Systems", "Control Theory", "Hardware Design"],
             links: {
                 github: "https://github.com/Ac3CJ/Nucleo-Fan-Controller",
@@ -368,6 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "FPGA RISC CPU",
             subtitle: "SystemVerilog & Hardware Design",
             icon: "fa-solid fa-gamepad",
+            bgImage: "../images/cpu-architecture.png",
             tags: ["SystemVerilog", "FPGA", "Hardware Design", "Embedded Systems", "System Integration"],
             links: { github: "https://github.com/Ac3CJ/FPGA-CPU-And-Pong-Game", report: null },
             richContent: `
@@ -422,6 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "Genetic Algorithm Analysis",
             subtitle: "Optimization & Schema Theorem",
             icon: "fa-solid fa-dna",
+            bgImage: "../images/ga-convergence.png",
             tags: ["Python", "Optimization", "Technical Writing"],
             links: {
                 github: null, 
@@ -504,6 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "PIC16F84A Embedded Projects",
             subtitle: "Assembly & C Embedded Systems",
             icon: "fa-solid fa-calculator",
+            bgImage: "../images/pic-lock.png",
             tags: ["C/C++", "Embedded Systems", "Hardware Design", "Assembly Language", "Optimisation"],
             links: { github: null, report: null },
             richContent: `
@@ -562,6 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "Healthtech Company Analysis",
             subtitle: "Sensoria Health Case Study",
             icon: "fa-solid fa-user-doctor",
+            bgImage: "../images/longsi.jpg",
             tags: ["Business Analysis", "Technical Writing", "Market Research"],
             links: {
                 github: null,
@@ -635,6 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "Biomimetic Shoulders Lit. Review",
             subtitle: "Kinematic Architecture Review",
             icon: "fa-solid fa-book-journal-whills",
+            bgImage: "../images/biomimetic-pwr-graph.png",
             tags: ["Technical Writing", "Robotics Design", "Biomimetics"],
             links: { 
                 github: null, 
@@ -694,6 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: "Non-Invasive Prosthetic Control",
             subtitle: "EEG/EMG Control & Signal Processing",
             icon: "fa-solid fa-robot",
+            bgImage: "../images/robot-hand.jpg",
             tags: ["Control Theory", "Signal Processing", "Machine Learning", "Python"],
             links: { github: null, report: null },
             richContent: `<p style="color:#ccc;">FYP Details coming soon...</p>`
@@ -727,6 +737,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'project-card';
             card.setAttribute('data-id', p.id);
+            
+            if (p.bgImage) {
+                card.style.setProperty('--bg-image', `url(${p.bgImage})`);
+            }
+
             card.innerHTML = `
                 <div class="card-header">
                     <div class="card-img-holder"><i class="${p.icon}"></i></div>

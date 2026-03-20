@@ -374,20 +374,49 @@ body {
 
 .project-card {
     display: flex;
-    flex-direction: column; /* Stack Header and Tags vertically */
+    flex-direction: column; 
+    
+    /* Fallback color and dynamic background image with a heavy dark overlay */
     background-color: #252525;
+    background-image: linear-gradient(rgba(26, 26, 26, 0.90), rgba(26, 26, 26, 0.95)), var(--bg-image, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
     padding: 15px;
     border-radius: 8px;
     border: 1px solid #333;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     border-left: 3px solid transparent;
+    
+    /* Adds a tiny shadow to text to ensure it remains perfectly readable over images */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
 .project-card:hover {
-    background-color: #2a2a2a;
+    /* Slightly lighten the overlay on hover so the image "pops" subtly */
+    background-image: linear-gradient(rgba(26, 26, 26, 0.75), rgba(26, 26, 26, 0.85)), var(--bg-image, none);
     border-left: 3px solid var(--glow-color);
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+/* Ensure the icon box stays solid and distinct from the background */
+.card-img-holder {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(30, 30, 30, 0.95); /* Slightly transparent dark box */
+    border: 1px solid #444;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.8);
 }
 
 .card-header {
