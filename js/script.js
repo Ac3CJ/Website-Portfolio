@@ -1,5 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- Mobile Hamburger Menu ---
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+    
+    // Toggle menu on hamburger click
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+    }
+    
+    // Close menu when a link is clicked
+    [...mobileNavItems, ...mobileNavLinks].forEach(link => {
+        link.addEventListener('click', () => {
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('show');
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.mobile-nav-bar') && !e.target.closest('.mobile-menu')) {
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('show');
+        }
+    });
+    
     // --- Navbar Code ---
     const navLinks = document.querySelectorAll('.nav-item');
     navLinks.forEach(link => {
@@ -30,6 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.forEach(link => {
             link.classList.remove('active');
             // Check if the href includes the current section ID
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Also update mobile nav items
+        mobileNavItems.forEach(link => {
+            link.classList.remove('active');
             if (link.getAttribute('href').includes(current)) {
                 link.classList.add('active');
             }
@@ -771,6 +809,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorProject = "#2196F3"; // Blue
     const colorSkill = "#FFD700";   // Yellow (Gold)
 
+    // Detect mobile for responsive forces
+    const isMobile = window.innerWidth <= 920;
+
     // Calculate node size based on connections (Degree Centrality)
     graphData.nodes.forEach(node => {
         node.connections = graphData.links.filter(l => l.source === node.id || l.target === node.id).length;
@@ -794,13 +835,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulation Setup (Physics)
     const simulation = d3.forceSimulation(graphData.nodes)
-        .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(150))
-        .force("charge", d3.forceManyBody().strength(-200)) // Repel force
+        .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(isMobile ? 100 : 150))
+        .force("charge", d3.forceManyBody().strength(isMobile ? -150 : -200)) // Repel force
         //.force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collide", d3.forceCollide(d => (d.connections * 3) + 30)) // Prevent overlap
+        .force("collide", d3.forceCollide(d => (d.connections * 3) + 30)); // Prevent overlap
 
-        .force("y", d3.forceY(height / 2).strength(0.1))
-        .force("x", d3.forceX(width / 2).strength(0.02));
+    // Apply equivalent forces on mobile
+    if (isMobile) {
+        simulation
+            .force("y", d3.forceY(height / 2).strength(0.1))
+            .force("x", d3.forceX(width / 2).strength(0.1));
+        
+        // Apply initial zoom for mobile (zoomed out)
+        const initialZoom = d3.zoomIdentity.translate(width / 2, height / 2).scale(0.8).translate(-width / 2, -height / 2);
+        svg.call(zoom.transform, initialZoom);
+    } else {
+        simulation
+            .force("y", d3.forceY(height / 2).strength(0.1))
+            .force("x", d3.forceX(width / 2).strength(0.02));
+    }
 
     // Draw Lines
     const link = svgGroup.append("g")

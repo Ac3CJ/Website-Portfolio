@@ -30,9 +30,47 @@
         </div>
     </nav>
 
+    <!-- Mobile Menu Button -->
+    <div class="mobile-nav-bar">
+        <div class="mobile-logo-box">
+            <img src="./images/milky-logo.png" alt="Logo" class="mobile-logo">
+        </div>
+        <h2 class="mobile-name">Conrad Gacay</h2>
+        <button class="hamburger-menu" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-nav-item active">Home</a></li>
+            <li><a href="#projects" class="mobile-nav-item">Projects</a></li>
+            <li><a href="#contact" class="mobile-nav-item">Contact Me</a></li>
+        </ul>
+        <div class="mobile-social-links">
+            <a href="https://www.linkedin.com/in/conradgacay/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/Ac3CJ" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:conradgacay@gmail.com" target="_blank" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://drive.google.com/file/d/1B0ZAPcy1gnBwBNevyWj_YsgJb6TAvu7X/view?usp=drive_link" target="_blank" aria-label="Resume"><i class="fa fa-address-card" aria-hidden="true"></i></a>
+        </div>
+    </div>
+
     <main class="main-content">
         
         <section id="home" class="home-section">
+            
+            <!-- Mobile Image Carousel -->
+            <div class="mobile-image-carousel" id="mobile-image-carousel">
+                <img src="./images/lizard-car.jpg" alt="Work 1" class="carousel-img" style="animation-delay: 0s;">
+                <img src="./images/abaco.jpg" alt="Work 2" class="carousel-img" style="animation-delay: 8.75s;">
+                <img src="./images/micro-grind.jpg" alt="Work 3" class="carousel-img" style="animation-delay: 17.5s;">
+                <video src="./videos/obstacle-trim.mp4" class="carousel-img" style="animation-delay: 26.25s;" muted playsinline></video>
+                <img src="./images/robot-hand.jpg" alt="Work 5" class="carousel-img" style="animation-delay: 35s;">
+                <img src="./images/anna-jungle.jpg" alt="Work 6" class="carousel-img" style="animation-delay: 43.75s;">
+            </div>
             
             <div class="home-text">
                 <h1>Conrad Gacay<br>Robotics Engineer</h1>
@@ -87,7 +125,7 @@
         </section>
 
         <section id="projects" class="projects-section">
-            <h2 class="section-title">My Engineering Work</h2>
+            <h2 class="section-title">Engineering Work</h2>
             
             <div class="graph-container">
                 <div id="graph-view"></div>
