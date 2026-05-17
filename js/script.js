@@ -739,14 +739,157 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: "Non-Invasive Prosthetic Control",
-            subtitle: "EEG/EMG Control & Signal Processing",
+            subtitle: "MEng FYP · sEMG Shoulder Prosthetics",
             icon: "fa-solid fa-robot",
             bgImage: "../images/robot-hand.jpg",
-            tags: ["Control Theory", "Signal Processing", "Machine Learning", "Python"],
-            links: { github: null, report: null },
-            richContent: `<p style="color:#ccc;">FYP Details coming soon...</p>`
+            tags: ["Python", "Signal Processing", "Machine Learning", "Embedded Systems", "Hardware Design", "Control Theory"],
+            links: { github: "https://github.com/Ac3CJ/emg-signal-processing", report: null },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">Python / PyTorch</span>
+                    <span class="tech-badge">Raspberry Pi 5</span>
+                    <span class="tech-badge">sEMG / Signal Processing</span>
+                    <span class="tech-badge">Unity (C#)</span>
+                    <span class="tech-badge">Transfer Learning</span>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    Designed and built a fully non-invasive, <strong>simultaneous multi-DOF regression controller</strong> for shoulder disarticulation (SD) prosthetics.
+                    Eight torso-mounted sEMG electrodes decode continuous joint kinematics across four degrees of freedom — no surgery, no discrete click-to-switch modes.
+                    A systematic ablation study across <strong>six architectures, six augmentation strategies, five window sizes, and seven filtering configurations</strong> was evaluated under Leave-One-Subject-Out (LOSO) cross-validation.
+                </p>
+
+                <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent; margin-bottom: 20px;">
+                    <video controls style="width: 100%; max-height: 420px; border-radius: 8px; border: 1px solid #333;">
+                        <source src="./videos/fyp-demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <h3 class="project-section-title">Signal Processing Pipeline</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    The same five-stage pipeline runs identically on both offline training data and live inference, ensuring no distribution shift between training and deployment.
+                </p>
+
+                <img src="./images/fyp-signal-pipeline.png" class="project-full-img" style="background-color: transparent;" alt="sEMG Signal Processing Pipeline">
+
+                <div class="feature-grid" style="margin-top: 20px;">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-wave-square" style="color:#64ffda; margin-right:8px;"></i> Hardware Filtering</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            IIR notch at 50 Hz (Q=30) removes UK mains interference. A 4th-order Butterworth bandpass (30–450 Hz) strips motion artefacts below 30 Hz and respects the 500 Hz Nyquist limit.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-chart-line" style="color:#2196F3; margin-right:8px;"></i> Rectification & Normalisation</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Full-wave rectification converts the bipolar MUAP burst into a unipolar amplitude envelope. Per-participant MVC calibration (1st–99th percentile) normalises each channel to [0, 1], correcting for skin impedance and electrode placement variability.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Neural Network Architecture (ShoulderRCNN)</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    A hybrid recurrent-convolutional network adapted from the Inception-ECA gesture recognition architecture. Two Multiscale Inception-1D blocks extract spatial features across three receptive fields simultaneously, followed by an LSTM for temporal context, and four independent regression heads — one per DOF.
+                </p>
+
+                <img src="./images/fyp-nn-architecture.png" class="project-full-img" alt="ShoulderRCNN Architecture">
+
+                <div class="feature-grid" style="margin-top: 20px;">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-layer-group" style="color:#64ffda; margin-right:8px;"></i> Multiscale Inception Blocks</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Three parallel 1D convolutions (kernels 3, 7, 11) run in each block — the smallest captures fast motor-unit recruitment spikes, the largest covers slow isometric holds. ECA channel-attention gates re-weight features without dimensional bottlenecks.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-rotate" style="color:#2196F3; margin-right:8px;"></i> LSTM Temporal Stage</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            A single LSTM (hidden size 64) aggregates temporal context across the downsampled feature stream. Only the final hidden state is forwarded, reducing the recurrent overhead while preserving sequence memory critical for smoothing stochastic sEMG noise.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-arrows-split-up-and-left" style="color:#FFD700; margin-right:8px;"></i> Decoupled Regression Heads</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Four independent <code>Linear(32, 1)</code> heads for yaw, pitch, roll, and elbow. Decoupling prevents gradient interference between physiologically uncorrelated DOFs — a shared head would impose false cross-axis coupling via the loss surface.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Data Augmentation</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    Three augmentation techniques were applied before the filter chain — ensuring synthetic samples pass through the same preprocessing as live data and cannot inject out-of-band frequency content.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-shuffle" style="color:#64ffda; margin-right:8px;"></i> Within-Class Mixup</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Linearly interpolates pairs of same-class bursts (λ ~ Beta(0.2, 0.2)) and their kinematic labels. Restricted to within-class pairs — cross-class blends would produce anatomically invalid intermediate angles.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-bezier-curve" style="color:#2196F3; margin-right:8px;"></i> Magnitude Warping</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Multiplies each burst by a smooth random amplitude envelope (cubic spline, σ=0.1, 4 knots), modelling inter-trial gain drift from electrode impedance change and MyoWare module tolerance.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-signal" style="color:#FFD700; margin-right:8px;"></i> Noise Injection</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Adds Gaussian noise at two calibrated magnitudes (5×10⁻⁶, 1×10⁻⁵) tuned to match the noise floor of the consumer MyoWare sensors — bridging the hardware quality gap with the professional secondary dataset.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">Ablation Results — RMSE (degrees)</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 8px;">
+                    All evaluations use LOSO cross-validation on the collected dataset. Lower RMSE is better. Movement 4 is a persistent outlier across all configurations due to inter-DOF kinematic leakage in the torso sEMG signal.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                    <div>
+                        <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold; display:block; margin-bottom:6px;">Window Size</span>
+                        <img src="./images/fyp-rmse-window.png" class="project-full-img" style="margin-bottom: 0; height: auto; background-color: transparent;" alt="RMSE vs Window Size">
+                    </div>
+                    <div>
+                        <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold; display:block; margin-bottom:6px;">Window Step</span>
+                        <img src="./images/fyp-rmse-step.png" class="project-full-img" style="margin-bottom: 0; height: auto; background-color: transparent;" alt="RMSE vs Step Size">
+                    </div>
+                    <div>
+                        <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold; display:block; margin-bottom:6px;">Model Architecture</span>
+                        <img src="./images/fyp-rmse-arch.png" class="project-full-img" style="margin-bottom: 0; height: auto; background-color: transparent;" alt="RMSE vs Architecture">
+                    </div>
+                    <div>
+                        <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold; display:block; margin-bottom:6px;">Data Augmentation</span>
+                        <img src="./images/fyp-rmse-aug.png" class="project-full-img" style="margin-bottom: 0; height: auto; background-color: transparent;" alt="RMSE vs Augmentation">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold; display:block; margin-bottom:6px;">Signal Filtering Configuration</span>
+                    <img src="./images/fyp-rmse-filter.png" class="project-full-img" style="margin-bottom: 0; height: auto; background-color: transparent;" alt="RMSE vs Filtering Strategy">
+                </div>
+
+                <h3 class="project-section-title">Transfer Learning</h3>
+                <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
+                    A base RCNN pre-trained on all collected subjects is fine-tuned on 60% of a single participant session. The <em>Not Frozen</em> strategy (all weights updated) achieves positive R² across every active movement class — including <strong>R² = 0.365 for the previously intractable Movement 4</strong> and <strong>R² = 0.749 for the best-performing class</strong>.
+                </p>
+
+                <img src="./images/fyp-rmse-tf.png" class="project-full-img" style="background-color: transparent;" alt="RMSE Transfer Learning Frozen vs Not Frozen">
+
+                <ul style="color: #a0a0a0; padding-left: 20px; line-height: 1.8; margin-top: 15px;">
+                    <li><strong>Not Frozen RMSE Range:</strong> 0.79° (rest) — 20.16° (90° elevation), versus 14–29° under LOSO cross-validation.</li>
+                    <li><strong>Frozen Strategy:</strong> Competitive for most classes but fails Movement 4 (R² = −0.17), confirming that the base feature representations do not fully generalise to participant-specific activation patterns without full weight updates.</li>
+                    <li><strong>Deployment Pathway:</strong> A brief MVC calibration + 60% of one session's contractions is sufficient to personalise the controller — no hardware modification required.</li>
+                </ul>
+            `
         }
     ];
+
+    // Promote FYP to first card, LM Health to second
+    const fyp = masterProjects.pop();
+    masterProjects.unshift(fyp);
 
     const graphNodes = [
         ...masterProjects.map(p => ({id: p.id, group: "project"})),
