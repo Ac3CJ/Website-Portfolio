@@ -743,7 +743,8 @@ document.addEventListener('DOMContentLoaded', () => {
             icon: "fa-solid fa-robot",
             bgImage: "../images/robot-hand.jpg",
             tags: ["Python", "Signal Processing", "Machine Learning", "Embedded Systems", "Hardware Design", "Control Theory"],
-            links: { github: "https://github.com/Ac3CJ/emg-signal-processing", report: null },
+            links: { github: "https://github.com/Ac3CJ/emg-signal-processing", 
+                report: "https://drive.google.com/file/d/1GPYmNVDHCoogW_9j0pqqwqmZEU3hmqDN/view?usp=drive_link" },
             richContent: `
                 <div class="tech-stack-container">
                     <span class="tech-badge">Python / PyTorch</span>
