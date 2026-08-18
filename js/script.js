@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         {id: "Python", group: "skill"},
         {id: "C/C++", group: "skill"},
         {id: "SystemVerilog", group: "skill"},
-        // {id: "Dart", group: "skill"},
         {id: "Assembly Language", group: "skill"},
         
         // Domain Specific
@@ -96,13 +95,16 @@ document.addEventListener('DOMContentLoaded', () => {
         {id: "Signal Processing", group: "skill"},
         {id: "FPGA", group: "skill"},
         {id: "Hardware Design", group: "skill"},
+        {id: "Computer Vision", group: "skill"},
         
         // Technologies/Tools
         {id: "Flutter/Dart", group: "skill"},
         {id: "Bluetooth LE", group: "skill"},
         {id: "STM32", group: "skill"},
         {id: "Arduino", group: "skill"},
+        {id: "Raspberry Pi", group: "skill"},
         {id: "Linux", group: "skill"},
+        {id: "OpenCV", group: "skill"},
 
         // Misc.
         {id: "Technical Writing", group: "skill"},
@@ -115,6 +117,84 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     const masterProjects = [
+        {
+            id: "Vision-Based Virtual Keyboard",
+            subtitle: "Monocular CV & Kinematic Profiling (WIP)",
+            icon: "fa-solid fa-keyboard",
+            bgImage: "../images/finger-touch.png",
+            tags: ["C/C++", "Python", "Machine Learning", "Signal Processing", "Computer Vision", "OpenCV", "Linux"],
+            links: {
+                github: "https://github.com/Ac3CJ/kb-code",
+                report: null
+            },
+            richContent: `
+                <div class="tech-stack-container">
+                    <span class="tech-badge">C++ / Bazel</span>
+                    <span class="tech-badge">OpenCV</span>
+                    <span class="tech-badge">MediaPipe</span>
+                    <span class="tech-badge">Kalman Filter</span>
+                </div>
+
+                <div style="background-color: rgba(255, 215, 0, 0.05); border-left: 3px solid #FFD700; padding: 12px 15px; margin-bottom: 25px; border-radius: 4px;">
+                    <p style="color: #FFD700; font-size: 0.95rem; margin: 0; font-weight: 600;"><i class="fa-solid fa-person-digging"></i> Active Work In Progress</p>
+                    <p style="color: #ccc; font-size: 0.85rem; margin-top: 5px; margin-bottom: 0; line-height: 1.5;">The core C++ architecture, custom sensor fusion, and homography mapping are complete. I am currently engineering the signal processing state machine to reliably extract keystrokes from the kinematic profile.</p>
+                </div>
+
+                <p style="color: #ccc; line-height: 1.6; font-size: 1.05rem;">
+                    Developing a purely vision-based virtual keyboard using a single, monocular RGB camera looking down at a desk from a steep angle. 
+                    The system maps a virtual keyboard onto the desk using ArUco markers and detects human keystrokes. <strong>Constraint: No depth sensors, IR, or wearable hardware.</strong>
+                </p>
+
+                <h3 class="project-section-title">The Engineering Challenge</h3>
+                <p style="color: #a0a0a0; font-size: 0.9rem; margin-bottom: 15px;">
+                    Standard ML hand trackers (like MediaPipe) fail catastrophically at this steep typing angle due to extreme self-occlusion (hidden knuckles) and motion blur. 
+                    The network hallucinates Z-depth and straightens fingers, causing traditional 3D bounding-box spatial intersection to fail.
+                </p>
+
+                <div class="project-banner-placeholder" style="height: auto; border: none; background: transparent; margin-bottom: 20px;">
+                    <video controls autoplay loop muted playsinline style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                        <source src="./videos/kb-hand-track-test.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-eye" style="color:#64ffda; margin-right:8px;"></i> Optical Flow Injection</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            Lucas-Kanade optical flow is run on a micro-ROI around each landmark to extract pixel-perfect instantaneous velocity ($V_x$, $V_y$), bypassing spatial jitter.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-filter" style="color:#2196F3; margin-right:8px;"></i> 4D Kalman Filter</h4>
+                        <p style="font-size: 0.9rem; color: #a0a0a0;">
+                            The optical flow velocity is injected directly into a Constant Velocity Kalman Filter's measurement step, heavily weighting the flow covariance to achieve zero-phase-lag tracking.
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="project-section-title">The Pivot: 1D Kinematic Touch Detection</h3>
+                <p style="color: #ccc; line-height: 1.6; margin-bottom: 15px;">
+                    Because reliable Z-depth is impossible, the system shifts from 3D spatial detection to <strong>1D Signal Processing</strong>. 
+                    By evaluating the fused vertical velocity ($V_y$) stream, the system infers physical contact by detecting the physical profile of a keystroke: a fast approach, followed by an instantaneous deceleration to $V_y \\approx 0$ (the 50-100ms dwell upon desk impact), and a negative release.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                    <div>
+                        <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold; display:block; margin-bottom:6px;">Homography & Tracking Test</span>
+                        <video controls autoplay loop muted playsinline style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                            <source src="./videos/kb-tracking-test.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div>
+                        <span style="color: var(--glow-color); font-size: 0.8rem; font-weight: bold; display:block; margin-bottom:6px;">Kinematic Velocity Profile ($V_y$)</span>
+                        <video controls autoplay loop muted playsinline style="width: 100%; border-radius: 8px; border: 1px solid #333;">
+                            <source src="./videos/kb-kinematic-profile.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            `
+        },
         {
             id: "LM Health Knee Brace",
             subtitle: "Integration & Control Systems",
@@ -280,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subtitle: "ROS & Obstacle Avoidance",
             icon: "fa-solid fa-vr-cardboard",
             bgImage: "../images/lizard-car.jpg",
-            tags: ["Python", "ROS", "Machine Learning", "Linux"],
+            tags: ["Python", "ROS", "Machine Learning", "Linux", "Computer Vision"],
             links: {
                 github: "https://github.com/Ac3CJ/ros-coppeliasim-robot-cw",
                 report: "https://drive.google.com/file/d/1uEhiBZxMzIcx5-P6cUhvjCAX-VJPBq-M/view?usp=drive_link"
@@ -742,7 +822,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subtitle: "MEng FYP · sEMG Shoulder Prosthetics",
             icon: "fa-solid fa-robot",
             bgImage: "../images/robot-hand.jpg",
-            tags: ["Python", "Signal Processing", "Machine Learning", "Embedded Systems", "Hardware Design", "Control Theory"],
+            tags: ["Python", "Signal Processing", "Machine Learning", "Embedded Systems", "Hardware Design", "Control Theory", "Arduino", "Raspberry Pi", "Technical Writing", "System Integration"],
             links: { github: "https://github.com/Ac3CJ/emg-signal-processing", 
                 report: "https://drive.google.com/file/d/1GPYmNVDHCoogW_9j0pqqwqmZEU3hmqDN/view?usp=drive_link" },
             richContent: `
